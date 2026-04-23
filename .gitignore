@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.next/
+
+# Astro internals
+.astro/
+
+# Env
+.env
+.env.local

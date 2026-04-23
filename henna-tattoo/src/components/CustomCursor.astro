@@ -1,0 +1,279 @@
+---
+// Realistic henna-cone cursor that follows the mouse with spring-like lag.
+// Modelled on Fjorentina's actual purple glittery cone with brand sticker.
+// Hides on touch devices and reduced-motion.
+---
+
+<div id="custom-cursor" class="cursor" aria-hidden="true">
+  <svg viewBox="-14 -32 28 42" width="28" height="42">
+    <defs>
+      <!-- Purple glittery cellophane body -->
+      <linearGradient id="cone-body-grad" x1="0" y1="0" x2="0.2" y2="1">
+        <stop offset="0%"   stop-color="#c474de" />
+        <stop offset="25%"  stop-color="#9848b8" />
+        <stop offset="60%"  stop-color="#5f2289" />
+        <stop offset="100%" stop-color="#301050" />
+      </linearGradient>
+
+      <!-- Left-side glossy shine (light hitting the cone) -->
+      <linearGradient id="cone-gloss-grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="30%"  stop-color="#ffffff" stop-opacity="0.55" />
+        <stop offset="60%"  stop-color="#ffffff" stop-opacity="0.15" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </linearGradient>
+
+      <!-- Right-side form shadow -->
+      <linearGradient id="cone-form-grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="70%" stop-color="#000000" stop-opacity="0" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.4" />
+      </linearGradient>
+
+      <!-- Wet paste droplet -->
+      <radialGradient id="cone-paste-grad" cx="35%" cy="25%">
+        <stop offset="0%"   stop-color="#a25826" />
+        <stop offset="45%"  stop-color="#5a2810" />
+        <stop offset="100%" stop-color="#1a0703" />
+      </radialGradient>
+
+      <!-- Brand sticker background -->
+      <radialGradient id="cone-sticker-grad" cx="40%" cy="30%">
+        <stop offset="0%"   stop-color="#ffffff" />
+        <stop offset="80%"  stop-color="#f7ead3" />
+        <stop offset="100%" stop-color="#c4a988" />
+      </radialGradient>
+
+      <!-- Ground shadow -->
+      <radialGradient id="cone-floor-grad">
+        <stop offset="0%"   stop-color="#000000" stop-opacity="0.35" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- Soft ground shadow below the tip -->
+    <ellipse cx="0" cy="7" rx="5" ry="1.4" fill="url(#cone-floor-grad)" />
+
+    <!-- Main cone body — hand-rolled curvy shape -->
+    <path
+      d="M -11 -30
+         Q -12.5 -28 -10.5 -24
+         Q -9 -17 -6 -10
+         Q -3.5 -4 -1.2 -0.5
+         L 1.2 -0.5
+         Q 3.5 -4 6 -10
+         Q 9 -17 10.5 -24
+         Q 12.5 -28 11 -30
+         Q 5 -31.5 0 -31
+         Q -5 -31.5 -11 -30 Z"
+      fill="url(#cone-body-grad)"
+    />
+
+    <!-- Left-side gloss overlay -->
+    <path
+      d="M -10 -29.5
+         Q -11.5 -27.5 -9.5 -23.5
+         Q -8 -17 -5 -10
+         Q -2.5 -4 -0.5 -1
+         L 0.5 -1
+         Q -2 -4 -4 -10
+         Q -7 -17 -8.5 -23.5
+         Q -10 -27.5 -9 -29.5 Z"
+      fill="url(#cone-gloss-grad)"
+      opacity="0.9"
+    />
+
+    <!-- Right-side form shadow -->
+    <path
+      d="M 11 -30
+         Q 12.5 -28 10.5 -24
+         Q 9 -17 6 -10
+         Q 3.5 -4 1.2 -0.5
+         L 0.6 -0.5
+         Q 3 -4 5 -10
+         Q 8 -17 9.5 -24
+         Q 11 -27.5 10 -29.5 Z"
+      fill="url(#cone-form-grad)"
+    />
+
+    <!-- Twisted top crimp -->
+    <path
+      d="M -11 -30 Q -5.5 -32 0 -31 Q 5.5 -32 11 -30"
+      fill="none"
+      stroke="#2a0a44"
+      stroke-width="0.5"
+      stroke-linecap="round"
+    />
+    <g stroke="#2a0a44" stroke-width="0.35" stroke-linecap="round">
+      <line x1="-8" y1="-31" x2="-7" y2="-29" />
+      <line x1="-4" y1="-31.5" x2="-3" y2="-29.5" />
+      <line x1="0" y1="-31.8" x2="0" y2="-29.5" />
+      <line x1="3" y1="-31.5" x2="4" y2="-29.5" />
+      <line x1="7" y1="-31" x2="8" y2="-29" />
+    </g>
+
+    <!-- Brand sticker (circular, white) -->
+    <circle cx="0" cy="-19" r="5" fill="url(#cone-sticker-grad)" stroke="#9c8470" stroke-width="0.3" />
+
+    <!-- Mini 6-petal lotus on sticker (matches brand aesthetic) -->
+    <g transform="translate(0 -19)" fill="none" stroke="#8b4513" stroke-linecap="round">
+      <circle r="3.2" stroke-width="0.25" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" transform="rotate(60)" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" transform="rotate(120)" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" transform="rotate(180)" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" transform="rotate(240)" />
+      <path d="M 0 -2.8 C -0.8 -2.2 -0.8 -0.8 0 -0.3 C 0.8 -0.8 0.8 -2.2 0 -2.8 Z" stroke-width="0.3" transform="rotate(300)" />
+      <circle r="0.4" fill="#8b4513" stroke="none" />
+    </g>
+
+    <!-- Glitter sparkles on the cellophane -->
+    <g fill="#ffffff">
+      <circle cx="-8"  cy="-26" r="0.40" opacity="0.85" />
+      <circle cx="6"   cy="-24" r="0.30" opacity="0.75" />
+      <circle cx="-5"  cy="-14" r="0.42" opacity="0.90" />
+      <circle cx="5"   cy="-12" r="0.30" opacity="0.80" />
+      <circle cx="-6"  cy="-7"  r="0.35" opacity="0.85" />
+      <circle cx="3"   cy="-27" r="0.30" opacity="0.75" />
+      <circle cx="-3"  cy="-5"  r="0.38" opacity="0.85" />
+      <circle cx="4"   cy="-6"  r="0.30" opacity="0.75" />
+      <circle cx="7"   cy="-18" r="0.35" opacity="0.80" />
+      <circle cx="-9"  cy="-22" r="0.32" opacity="0.75" />
+      <circle cx="8"   cy="-28" r="0.28" opacity="0.70" />
+      <circle cx="-2"  cy="-10" r="0.32" opacity="0.80" />
+    </g>
+
+    <!-- Wet paste teardrop at the tip -->
+    <path
+      d="M 0 -0.2
+         Q -2.4 1.2 -1.8 3.2
+         Q -0.9 4.6 0 4.9
+         Q 0.9 4.6 1.8 3.2
+         Q 2.4 1.2 0 -0.2 Z"
+      fill="url(#cone-paste-grad)"
+    />
+    <!-- Glossy highlight on the droplet -->
+    <ellipse cx="-0.6" cy="1.4" rx="0.5" ry="0.9" fill="#e8c586" opacity="0.65" />
+    <circle  cx="-0.4" cy="1"   r="0.25" fill="#f7e4c2" opacity="0.9" />
+  </svg>
+</div>
+
+<div id="custom-cursor-trail" class="cursor-trail" aria-hidden="true"></div>
+
+<style>
+  .cursor,
+  .cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+    will-change: transform;
+    transform: translate3d(-100px, -100px, 0);
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+  .cursor {
+    transform-origin: 50% 100%;
+    filter:
+      drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35))
+      drop-shadow(0 8px 18px rgba(60, 20, 80, 0.25));
+  }
+  .cursor-trail {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255, 210, 150, 0.85), rgba(139, 69, 19, 0) 70%);
+    filter: blur(2px);
+  }
+  .cursor.ready,
+  .cursor-trail.ready { opacity: 1; }
+  .cursor.hide,
+  .cursor-trail.hide { opacity: 0; }
+
+  /* Hover state on interactive elements — cone shrinks and tilts slightly */
+  .cursor.interactive svg {
+    transform: scale(0.75) rotate(-8deg);
+  }
+  .cursor svg {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: none) {
+    .cursor, .cursor-trail { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor, .cursor-trail { display: none; }
+  }
+</style>
+
+<script>
+  const cursor = document.getElementById('custom-cursor');
+  const trail = document.getElementById('custom-cursor-trail');
+
+  if (
+    cursor &&
+    trail &&
+    !window.matchMedia('(hover: none)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    document.documentElement.style.cursor = 'none';
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let coneX = -100;
+    let coneY = -100;
+    let trailX = -100;
+    let trailY = -100;
+    let isDown = false;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.classList.add('ready');
+      trail.classList.add('ready');
+    });
+
+    window.addEventListener('mouseleave', () => {
+      cursor.classList.add('hide');
+      trail.classList.add('hide');
+    });
+    window.addEventListener('mouseenter', () => {
+      cursor.classList.remove('hide');
+      trail.classList.remove('hide');
+    });
+    window.addEventListener('mousedown', () => { isDown = true; });
+    window.addEventListener('mouseup', () => { isDown = false; });
+
+    const interactiveSel =
+      'a, button, input, textarea, select, [role="button"], [data-cursor="hover"]';
+    document.addEventListener('mouseover', (e) => {
+      if ((e.target as Element)?.closest?.(interactiveSel)) {
+        cursor.classList.add('interactive');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if ((e.target as Element)?.closest?.(interactiveSel)) {
+        cursor.classList.remove('interactive');
+      }
+    });
+
+    // SVG width is 28px; horizontal center is 14px
+    const halfW = 14;
+
+    const render = () => {
+      coneX += (mouseX - coneX) * 0.22;
+      coneY += (mouseY - coneY) * 0.22;
+      trailX += (mouseX - trailX) * 0.08;
+      trailY += (mouseY - trailY) * 0.08;
+
+      const scale = isDown ? 0.85 : 1;
+      cursor.style.transform =
+        `translate3d(${coneX - halfW}px, ${coneY}px, 0) scale(${scale})`;
+      trail.style.transform =
+        `translate3d(${trailX - 6}px, ${trailY - 6}px, 0)`;
+
+      requestAnimationFrame(render);
+    };
+    render();
+  }
+</script>

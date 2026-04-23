@@ -1,0 +1,35 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  accent: string;
+}
+
+const { src, title, accent } = Astro.props;
+---
+
+<figure class="group relative overflow-hidden rounded-2xl border border-henna-100 bg-white shadow-sm">
+  <div class={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${accent}`}></div>
+  <div class="flex items-center justify-between px-5 pt-5">
+    <span class="text-xs font-semibold uppercase tracking-[0.25em] text-henna-500">
+      Size &amp; price guide
+    </span>
+    <span class="rounded-full bg-henna-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-henna-600">
+      Visual
+    </span>
+  </div>
+
+  <div class="relative mt-2 bg-[radial-gradient(ellipse_at_top,rgba(139,69,19,0.06),transparent_60%)] px-4 pb-6 pt-4">
+    <img
+      src={src}
+      alt={`${title} — size and price guide`}
+      loading="lazy"
+      decoding="async"
+      class="mx-auto w-full max-w-xs object-contain transition duration-500 group-hover:scale-[1.02]"
+    />
+  </div>
+
+  <figcaption class="border-t border-henna-100 bg-henna-50/40 px-5 py-3 text-xs text-ink/60">
+    Approximate size-to-price scale. Final quote depends on detail, placement and time.
+  </figcaption>
+</figure>

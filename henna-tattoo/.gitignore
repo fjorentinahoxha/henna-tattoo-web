@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.next/
+
+# Astro internals
+.astro/
+
+# Env
+.env
+.env.local

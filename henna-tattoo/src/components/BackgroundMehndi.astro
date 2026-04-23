@@ -1,0 +1,344 @@
+---
+// Ambient mehndi flourishes that progressively draw themselves down the
+// LEFT and RIGHT edges of the viewport as the page scrolls.
+// Styled as real henna: filled flower petals (teardrop shapes), filled
+// pointed leaves, swirling vine curves, and small rose spirals —
+// all in henna-brown, drawn outline-first then filled in, like real paste.
+
+// Each stroke declares a scroll-progress window (--s .. --s + --d).
+// CSS turns scroll position into per-path dash offset (outline) and
+// fill opacity (solid fill), mimicking how henna actually fills on skin.
+
+type Path = {
+  d: string;
+  transform?: string;
+  s: number;
+  d_: number;
+  sw?: number;
+  filled?: boolean;
+};
+
+// === Primitive: a filled teardrop petal pointing UP, tip at (0, -size) ===
+const petalD = (size: number) =>
+  `M 0 -${size} C -${size * 0.42} -${size * 0.82}, -${size * 0.48} -${size * 0.32}, 0 -${size * 0.08} C ${size * 0.48} -${size * 0.32}, ${size * 0.42} -${size * 0.82}, 0 -${size} Z`;
+
+// === Primitive: a filled pointed leaf, base at (0, 0), tip at (0, -size) ===
+const leafD = (size: number) =>
+  `M 0 0 C -${size * 0.24} -${size * 0.35}, -${size * 0.24} -${size * 0.70}, 0 -${size} C ${size * 0.24} -${size * 0.70}, ${size * 0.24} -${size * 0.35}, 0 0 Z`;
+
+// === Primitive: a small teardrop bud ===
+const budD = (size: number) =>
+  `M 0 0 C -${size * 0.3} -${size * 0.35}, -${size * 0.3} -${size * 0.75}, 0 -${size} C ${size * 0.3} -${size * 0.75}, ${size * 0.3} -${size * 0.35}, 0 0 Z`;
+
+// === Helper: build a filled N-petal flower at (cx, cy) with given size ===
+function flower(cx: number, cy: number, size: number, count: number, sStart: number, rot = 0): Path[] {
+  const petalD_ = petalD(size);
+  const angleStep = 360 / count;
+  // Small stagger so petals draw slightly after each other
+  const perPetal = 0.006;
+  const paths: Path[] = Array.from({ length: count }).map((_, i) => ({
+    d: petalD_,
+    transform: `translate(${cx} ${cy}) rotate(${rot + i * angleStep})`,
+    s: sStart + i * perPetal,
+    d_: 0.02,
+    filled: true,
+    sw: 0.7,
+  }));
+  // Center dot
+  paths.push({
+    d: `M ${cx} ${cy} m -${size * 0.18} 0 a ${size * 0.18} ${size * 0.18} 0 1 0 ${size * 0.36} 0 a ${size * 0.18} ${size * 0.18} 0 1 0 -${size * 0.36} 0`,
+    s: sStart + count * perPetal + 0.003,
+    d_: 0.012,
+    filled: true,
+    sw: 0.5,
+  });
+  return paths;
+}
+
+// === Helper: a filled leaf at (cx, cy) rotated to angle (deg) ===
+function leaf(cx: number, cy: number, size: number, angle: number, s: number, d_ = 0.018): Path {
+  return {
+    d: leafD(size),
+    transform: `translate(${cx} ${cy}) rotate(${angle})`,
+    s,
+    d_,
+    filled: true,
+    sw: 0.7,
+  };
+}
+
+function bud(cx: number, cy: number, size: number, angle: number, s: number): Path {
+  return {
+    d: budD(size),
+    transform: `translate(${cx} ${cy}) rotate(${angle})`,
+    s,
+    d_: 0.012,
+    filled: true,
+    sw: 0.5,
+  };
+}
+
+// ===============================================================
+// LEFT EDGE — drawing sequence from top to bottom (0.00 → 0.80)
+// ===============================================================
+const leftStrokes: Path[] = [
+  // --- TOP CLUSTER ---
+  ...flower(185, 155, 24, 5, 0.00),
+  // Leaves flanking the top flower
+  leaf(145, 155, 18, -70, 0.055),
+  leaf(225, 160, 18, 70, 0.060),
+  leaf(190, 120, 14, -10, 0.065),
+  // Stem curl extending down
+  { d: 'M 180 180 C 200 220, 140 240, 170 280', s: 0.08, d_: 0.04, sw: 1.4 },
+
+  // --- UPPER VINE ---
+  // Main flowing S-curve
+  { d: 'M 170 280 C 110 330, 200 380, 130 440 C 70 490, 170 540, 140 600', s: 0.12, d_: 0.08, sw: 1.8 },
+  // Leaves alternating sides along the vine
+  leaf(138, 325, 18, 110, 0.18),
+  leaf(180, 370, 18, -60, 0.20),
+  leaf(115, 415, 17, 120, 0.22),
+  leaf(170, 470, 17, -50, 0.24),
+  leaf(95, 530, 16, 130, 0.26),
+  // Small bud with stem
+  { d: 'M 160 350 C 185 340, 200 355, 195 370', s: 0.21, d_: 0.015, sw: 0.9 },
+  bud(197, 372, 8, 20, 0.225),
+  // Mini rose (spiral stroke)
+  { d: 'M 200 480 C 196 475, 192 480, 195 486 C 199 492, 209 490, 212 482 C 215 472, 200 466, 192 476 C 184 486, 196 502, 210 498', s: 0.28, d_: 0.025, sw: 0.9 },
+
+  // --- MIDDLE FLOWER ---
+  ...flower(150, 640, 26, 6, 0.32),
+  leaf(110, 650, 20, -80, 0.40),
+  leaf(195, 645, 20, 80, 0.42),
+  leaf(150, 600, 16, 0, 0.44),
+
+  // --- LOWER VINE ---
+  { d: 'M 150 690 C 200 740, 110 790, 160 850 C 200 900, 140 950, 180 1000', s: 0.48, d_: 0.08, sw: 1.7 },
+  leaf(185, 740, 17, -60, 0.54),
+  leaf(130, 790, 17, 130, 0.56),
+  leaf(180, 860, 16, -50, 0.58),
+  leaf(140, 920, 16, 120, 0.60),
+  // Secondary small flower near bottom
+  ...flower(170, 960, 18, 5, 0.64),
+  leaf(140, 980, 14, 110, 0.72),
+  leaf(205, 975, 14, -100, 0.73),
+  // Final trailing curl
+  { d: 'M 180 1000 C 210 1030, 180 1060, 150 1070', s: 0.76, d_: 0.03, sw: 1.2 },
+];
+
+// ===============================================================
+// RIGHT EDGE — mirrored but with its own composition (0.08 → 0.88)
+// Coords are relative to a 300-wide viewBox; elements pushed to the right
+// ===============================================================
+const rightStrokes: Path[] = [
+  // --- TOP ORNATE FLOWER ---
+  ...flower(115, 180, 28, 6, 0.08),
+  leaf(75, 180, 22, -70, 0.15),
+  leaf(158, 180, 22, 70, 0.16),
+  leaf(115, 130, 16, 0, 0.17),
+  leaf(115, 230, 14, 180, 0.18),
+  // Stem curl
+  { d: 'M 115 250 C 140 290, 90 310, 130 350', s: 0.19, d_: 0.035, sw: 1.4 },
+
+  // --- MIDDLE VINE ---
+  { d: 'M 130 350 C 200 410, 100 460, 160 520 C 220 580, 120 640, 160 700', s: 0.22, d_: 0.10, sw: 1.8 },
+  leaf(175, 390, 18, 60, 0.29),
+  leaf(120, 440, 18, -110, 0.31),
+  leaf(195, 490, 18, 50, 0.33),
+  leaf(115, 555, 17, -120, 0.35),
+  leaf(200, 605, 17, 55, 0.37),
+  leaf(125, 665, 17, -125, 0.39),
+  // Small bud with stem
+  { d: 'M 160 430 C 135 425, 120 440, 125 455', s: 0.32, d_: 0.015, sw: 0.9 },
+  bud(123, 458, 8, -30, 0.335),
+  // Mini rose spiral
+  { d: 'M 100 580 C 104 575, 108 580, 105 586 C 101 592, 91 590, 88 582 C 85 572, 100 566, 108 576 C 116 586, 104 602, 90 598', s: 0.38, d_: 0.025, sw: 0.9 },
+
+  // --- MIDDLE CLUSTER: PAIR OF SMALL FLOWERS ---
+  ...flower(145, 760, 20, 5, 0.46),
+  ...flower(185, 795, 18, 5, 0.52),
+  leaf(120, 770, 16, -70, 0.60),
+  leaf(210, 810, 16, 70, 0.62),
+  leaf(165, 830, 14, 170, 0.64),
+
+  // --- LOWER VINE & TAIL ---
+  { d: 'M 170 830 C 110 880, 200 920, 140 970 C 100 1010, 180 1050, 150 1080', s: 0.66, d_: 0.08, sw: 1.6 },
+  leaf(170, 895, 16, 50, 0.74),
+  leaf(115, 940, 16, -130, 0.76),
+  leaf(175, 1000, 15, 60, 0.78),
+  // Final bud
+  bud(150, 1060, 10, 0, 0.85),
+];
+---
+
+<div class="bg-mehndi" aria-hidden="true">
+  <!-- LEFT EDGE -->
+  <svg class="edge edge-left" viewBox="0 0 300 1080" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg-mehndi-grad-left" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#b87441" />
+        <stop offset="55%"  stop-color="#8b4513" />
+        <stop offset="100%" stop-color="#55280b" />
+      </linearGradient>
+      <filter id="bg-mehndi-soften-left" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur stdDeviation="0.4" />
+      </filter>
+    </defs>
+    <g
+      stroke="url(#bg-mehndi-grad-left)"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      filter="url(#bg-mehndi-soften-left)"
+    >
+      {
+        leftStrokes.map((p) => (
+          <path
+            d={p.d}
+            transform={p.transform}
+            pathLength="1"
+            stroke-width={p.sw ?? 1.2}
+            class:list={['bg-path', p.filled && 'bg-fill']}
+            style={`--s: ${p.s}; --d: ${p.d_};`}
+          />
+        ))
+      }
+    </g>
+  </svg>
+
+  <!-- RIGHT EDGE -->
+  <svg class="edge edge-right" viewBox="0 0 300 1080" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg-mehndi-grad-right" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#b87441" />
+        <stop offset="55%"  stop-color="#8b4513" />
+        <stop offset="100%" stop-color="#55280b" />
+      </linearGradient>
+      <filter id="bg-mehndi-soften-right" x="-10%" y="-10%" width="120%" height="120%">
+        <feGaussianBlur stdDeviation="0.4" />
+      </filter>
+    </defs>
+    <g
+      stroke="url(#bg-mehndi-grad-right)"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      filter="url(#bg-mehndi-soften-right)"
+    >
+      {
+        rightStrokes.map((p) => (
+          <path
+            d={p.d}
+            transform={p.transform}
+            pathLength="1"
+            stroke-width={p.sw ?? 1.2}
+            class:list={['bg-path', p.filled && 'bg-fill-right']}
+            style={`--s: ${p.s}; --d: ${p.d_};`}
+          />
+        ))
+      }
+    </g>
+  </svg>
+</div>
+
+<script>
+  // Update --page-scroll on document scroll (0 = top, 1 = bottom of scrollable area)
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    document.documentElement.style.setProperty('--page-scroll', String(p));
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  };
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+</script>
+
+<style>
+  .bg-mehndi {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    perspective: 1400px;
+  }
+
+  .edge {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 24vw;
+    max-width: 320px;
+    min-width: 200px;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    transform-origin: 50% 50%;
+    transition: transform 240ms ease-out;
+  }
+  .edge-left {
+    left: 0;
+    transform:
+      rotateY(calc(var(--page-scroll, 0) * 6deg))
+      rotateX(calc(var(--page-scroll, 0) * 3deg))
+      translateZ(calc(var(--page-scroll, 0) * 30px));
+  }
+  .edge-right {
+    right: 0;
+    /* Mirror the right edge so its flourishes face outward */
+    transform:
+      scaleX(-1)
+      rotateY(calc(var(--page-scroll, 0) * -6deg))
+      rotateX(calc(var(--page-scroll, 0) * 3deg))
+      translateZ(calc(var(--page-scroll, 0) * 30px));
+  }
+
+  /* Outline of each path draws first; fill paints in right after */
+  .bg-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: clamp(
+      0,
+      calc(1 - (var(--page-scroll, 0) - var(--s, 0)) / var(--d, 0.1)),
+      1
+    );
+  }
+
+  .bg-fill {
+    fill: url(#bg-mehndi-grad-left);
+    fill-opacity: clamp(
+      0,
+      calc((var(--page-scroll, 0) - var(--s, 0)) / var(--d, 0.1) - 0.4),
+      1
+    );
+  }
+
+  .bg-fill-right {
+    fill: url(#bg-mehndi-grad-right);
+    fill-opacity: clamp(
+      0,
+      calc((var(--page-scroll, 0) - var(--s, 0)) / var(--d, 0.1) - 0.4),
+      1
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .edge { transform: none !important; }
+    .edge-right { transform: scaleX(-1) !important; }
+    .bg-path { stroke-dashoffset: 0; }
+    .bg-fill, .bg-fill-right { fill-opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .edge { opacity: 0.22; width: 28vw; min-width: 140px; }
+  }
+  @media (max-width: 480px) {
+    .edge { opacity: 0.18; width: 32vw; min-width: 120px; }
+  }
+</style>

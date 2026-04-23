@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CustomCursor from '../components/CustomCursor.astro';
+import { site } from '../lib/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = `${site.name} — ${site.tagline}`,
+  description = site.description,
+  image = '/images/logo.svg',
+  canonical,
+} = Astro.props;
+
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': Astro.site?.toString(),
+  name: site.name,
+  description: site.description,
+  image: new URL('/images/logo.svg', Astro.site).toString(),
+  url: Astro.site?.toString(),
+  email: site.contact.email,
+  telephone: site.contact.phoneIntl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Rruga Kastriotet, Kompleksi "Garden City"',
+    addressLocality: 'Tirana',
+    postalCode: '1007',
+    addressCountry: 'AL',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 41.3438275,
+    longitude: 19.7783933,
+  },
+  priceRange: '10€ – 45€',
+  sameAs: [site.social.instagramUrl],
+  founder: { '@type': 'Person', name: site.artist },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.artist} />
+    <meta
+      name="keywords"
+      content="henna tattoo albania, henna tirana, jagua henna, brown henna, white henna, glitter henna, neon henna, mehndi tirana, bridal henna albania, temporary tattoo tirana"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site).toString()} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+  <body class="min-h-screen bg-cream font-sans text-ink">
+    <CustomCursor />
+    <Navbar />
+    <main class="min-h-[60vh]">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

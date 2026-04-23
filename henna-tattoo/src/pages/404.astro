@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../lib/site';
+---
+
+<Layout
+  title={`Page not found — ${site.name}`}
+  description="The page you’re looking for doesn’t exist."
+>
+  <section class="py-24 sm:py-32">
+    <div class="container-prose text-center">
+      <span class="eyebrow">404</span>
+      <h1 class="mt-4 text-5xl font-display text-henna-700 sm:text-6xl">
+        This design got washed off.
+      </h1>
+      <p class="mx-auto mt-4 max-w-md text-ink/70">
+        The page you&apos;re looking for doesn&apos;t exist or has moved. Let&apos;s
+        get you back to something beautiful.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn-primary">Back to home</a>
+        <a href="/#categories" class="btn-secondary">Browse categories</a>
+      </div>
+    </div>
+  </section>
+</Layout>
