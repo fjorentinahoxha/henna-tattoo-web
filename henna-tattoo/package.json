@@ -12,6 +12,7 @@
     "favicons": "node scripts/generate-favicons.mjs",
     "prebuild": "node scripts/optimize-images.mjs && node scripts/generate-favicons.mjs",
     "build": "astro build",
+    "postbuild": "node -e \"const fs=require('fs');if(fs.existsSync('dist/_originals')){console.error('FATAL: dist/_originals exists — source photos must never be deployed.');process.exit(1)};console.log('✓ dist clean of _originals');\"",
     "preview": "astro preview",
     "astro": "astro"
   },
