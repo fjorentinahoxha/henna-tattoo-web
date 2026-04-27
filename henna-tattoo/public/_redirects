@@ -1,0 +1,11 @@
+# Default language is Albanian (root).
+# English-speaking browsers landing on / are auto-redirected to /en/
+# on the first visit; subsequent visits keep their explicit URL.
+#
+# The flag toggle in the navbar gives users an explicit override at any time.
+
+# Trailing-slash normalization
+/en   /en/  301
+
+# Auto-detect: English browsers go to /en/, everyone else stays on / (Albanian).
+/  /en/  302  Language=en

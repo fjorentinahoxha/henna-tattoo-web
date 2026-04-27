@@ -1,26 +1,30 @@
 ---
 import type { Category } from '../lib/categories';
+import { getLang, dict, localizePath } from '../lib/i18n';
+import Picture from './Picture.astro';
 
 interface Props {
   category: Category;
 }
 
 const { category } = Astro.props;
+const lang = getLang(Astro);
+const t = dict.card;
 ---
 
 <a
-  href={`/categories/${category.slug}`}
+  href={localizePath(`/categories/${category.slug}`, lang)}
   class="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-henna-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
 >
   <div class={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br ${category.accent}`}>
     {
       category.image ? (
         <>
-          <img
+          <Picture
             src={category.image}
             alt={category.title}
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             loading="lazy"
-            decoding="async"
             class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></div>
@@ -37,7 +41,7 @@ const { category } = Astro.props;
       <span
         class="rounded-full bg-white/85 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-henna-700 shadow-sm backdrop-blur"
       >
-        From {category.startingAt}
+        {t.fromPrefix[lang]} {category.startingAt}
       </span>
     </div>
   </div>
@@ -48,7 +52,7 @@ const { category } = Astro.props;
     <p class="mt-4 text-sm text-ink/70">{category.description}</p>
 
     <div class="mt-6 flex items-center justify-between text-sm font-semibold text-henna-600">
-      <span>View designs &amp; pricing</span>
+      <span>{t.viewLink[lang]}</span>
       <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span>
     </div>
   </div>

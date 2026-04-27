@@ -1,0 +1,4 @@
+[build]
+  base    = "henna-tattoo"
+  command = "npm run build"
+  publish = "dist"

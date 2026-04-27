@@ -1,0 +1,108 @@
+# Netlify config — henna-tattoo-albania (Astro)
+#
+# `npm run build` triggers `prebuild` which runs the image optimizer.
+# It is incremental (manifest-driven) so build minutes stay low.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18.16.1"
+  HUSKY        = "0"
+
+# www → apex (one canonical host).
+[[redirects]]
+  from   = "https://www.hennatattooalbania.com/*"
+  to     = "https://hennatattooalbania.com/:splat"
+  status = 301
+  force  = true
+
+# ---------------------------------------------------------------
+# Cache headers — biggest lever for the free-tier bandwidth budget.
+# /images/* and /_astro/* are content-hashed or filename-versioned,
+# so they're marked immutable for one year.
+# ---------------------------------------------------------------
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Self-hosted variable fonts (bundled by @fontsource through Vite)
+[[headers]]
+  for = "/_astro/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/og-cover.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/favicon-*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/icon-*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type  = "application/xml; charset=utf-8"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Type  = "text/plain; charset=utf-8"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Type  = "application/manifest+json; charset=utf-8"
+
+# Default headers for every response. HTML revalidates so site updates
+# ship instantly; security headers harden the deploy.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options    = "nosniff"
+    X-Frame-Options           = "SAMEORIGIN"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    Permissions-Policy        = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Robots-Tag              = "index, follow, max-image-preview:large"
+
+# HTML revalidation policy — the edge keeps a copy but checks freshness.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

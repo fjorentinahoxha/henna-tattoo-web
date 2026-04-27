@@ -1,5 +1,14 @@
 ---
-import { site } from '../lib/site';
+import { getSite } from '../lib/site';
+import { getLang, dict, fmt, localizePath } from '../lib/i18n';
+import Picture from './Picture.astro';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const t = dict.hero;
+
+const tileImg = 'absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105';
+const tileSizes = '(min-width: 768px) 14rem, 50vw';
 ---
 
 <section class="relative overflow-hidden bg-paisley">
@@ -7,31 +16,29 @@ import { site } from '../lib/site';
     <div class="flex flex-col justify-center">
       <span class="eyebrow">{site.tagline}</span>
       <h1 class="mt-4 text-5xl font-display text-henna-700 sm:text-6xl lg:text-7xl">
-        Henna tattoos,<br />
-        <span class="italic text-henna-500">made for you.</span>
+        {t.headlineLine1[lang]}<br />
+        <span class="italic text-henna-500">{t.headlineLine2[lang]}</span>
       </h1>
       <p class="mt-6 max-w-lg text-lg text-ink/70">
-        Jagua, brown, white, glitter and colourful henna — all designed and
-        drawn by hand in {site.location.shortLabel}. Perfect for weddings,
-        festivals, events and everything in between.
+        {fmt(t.intro[lang], { place: site.location.shortLabel })}
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a href="/contact" class="btn-primary">Book a session</a>
-        <a href="/#categories" class="btn-secondary">Explore styles</a>
+        <a href={localizePath('/contact', lang)} class="btn-primary">{t.bookSession[lang]}</a>
+        <a href={localizePath('/#categories', lang)} class="btn-secondary">{t.exploreStyles[lang]}</a>
       </div>
 
       <dl class="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm md:mt-12 md:grid md:max-w-md md:grid-cols-3 md:gap-6">
         <div class="flex items-baseline gap-2 md:block">
           <dt class="font-display text-2xl text-henna-600 md:text-3xl">5</dt>
-          <dd class="text-ink/60">Henna styles</dd>
+          <dd class="text-ink/60">{t.statStyles[lang]}</dd>
         </div>
         <div class="flex items-baseline gap-2 md:block">
           <dt class="font-display text-2xl text-henna-600 md:text-3xl">100%</dt>
-          <dd class="text-ink/60">Skin-safe paste</dd>
+          <dd class="text-ink/60">{t.statSafe[lang]}</dd>
         </div>
         <div class="flex items-baseline gap-2 md:block">
           <dt class="font-display text-2xl text-henna-600 md:text-3xl">1:1</dt>
-          <dd class="text-ink/60">Custom designs</dd>
+          <dd class="text-ink/60">{t.statCustom[lang]}</dd>
         </div>
       </dl>
     </div>
@@ -39,51 +46,49 @@ import { site } from '../lib/site';
     <div class="relative flex items-center justify-center">
       <div class="absolute inset-0 -z-10 bg-gradient-to-br from-henna-100 via-transparent to-henna-200 blur-3xl"></div>
 
-      <!-- mobile: compact 2×2 grid with portrait tiles -->
       <div class="grid w-full grid-cols-2 gap-3 md:hidden">
-        <a href="/categories/brown-henna" class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
-          <img src="/images/brown.jpg" alt="Brown henna" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/brown-henna', lang)} class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+          <Picture src="/images/brown.jpg" alt={t.tileBrown[lang]} sizes={tileSizes} loading="eager" fetchpriority="high" width={787} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">Brown henna</span>
+          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">{t.tileBrown[lang]}</span>
         </a>
-        <a href="/categories/jagua-henna" class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
-          <img src="/images/jagua.jpg" alt="Jagua henna" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/jagua-henna', lang)} class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+          <Picture src="/images/jagua.jpg" alt={t.tileJagua[lang]} sizes={tileSizes} loading="eager" fetchpriority="high" width={1050} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">Jagua</span>
+          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">{t.tileJagua[lang]}</span>
         </a>
-        <a href="/categories/white-henna" class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
-          <img src="/images/white.jpg" alt="White henna" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/white-henna', lang)} class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+          <Picture src="/images/white.jpg" alt={t.tileWhite[lang]} sizes={tileSizes} loading="eager" width={1050} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"></div>
-          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">White lace</span>
+          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">{t.tileWhite[lang]}</span>
         </a>
-        <a href="/categories/colorful-henna" class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
-          <img src="/images/pink.jpg" alt="Colourful henna" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/colorful-henna', lang)} class="hero-tile group aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+          <Picture src="/images/pink.jpg" alt={t.tileColor[lang]} sizes={tileSizes} loading="eager" width={886} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">Glitter & colour</span>
+          <span class="hero-tile-label text-sm font-semibold text-cream drop-shadow">{t.tileColor[lang]}</span>
         </a>
       </div>
 
-      <!-- desktop: original staggered tall tiles -->
       <div class="relative hidden w-full max-w-md grid-cols-2 gap-4 md:grid">
-        <a href="/categories/brown-henna" class="hero-tile group aspect-[3/4] overflow-hidden rounded-3xl bg-gradient-to-br from-henna-400 to-henna-700 shadow-xl">
-          <img src="/images/brown.jpg" alt="Brown henna design" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/brown-henna', lang)} class="hero-tile group aspect-[3/4] overflow-hidden rounded-3xl bg-gradient-to-br from-henna-400 to-henna-700 shadow-xl">
+          <Picture src="/images/brown.jpg" alt={t.tileBrownAlt[lang]} sizes={tileSizes} loading="eager" fetchpriority="high" width={787} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">Brown henna</span>
+          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">{t.tileBrown[lang]}</span>
         </a>
-        <a href="/categories/jagua-henna" class="hero-tile group aspect-[3/4] translate-y-8 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800 to-slate-950 shadow-xl">
-          <img src="/images/jagua.jpg" alt="Jagua henna design" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/jagua-henna', lang)} class="hero-tile group aspect-[3/4] translate-y-8 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800 to-slate-950 shadow-xl">
+          <Picture src="/images/jagua_category.jpg" alt={t.tileJaguaAlt[lang]} sizes={tileSizes} loading="eager" fetchpriority="high" width={1133} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">Jagua</span>
+          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">{t.tileJagua[lang]}</span>
         </a>
-        <a href="/categories/white-henna" class="hero-tile group aspect-[3/4] overflow-hidden rounded-3xl bg-gradient-to-br from-stone-100 to-stone-300 shadow-xl">
-          <img src="/images/white.jpg" alt="White henna design" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/white-henna', lang)} class="hero-tile group aspect-[3/4] overflow-hidden rounded-3xl bg-gradient-to-br from-stone-100 to-stone-300 shadow-xl">
+          <Picture src="/images/white.jpg" alt={t.tileWhiteAlt[lang]} sizes={tileSizes} loading="eager" width={1050} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"></div>
-          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">White lace</span>
+          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">{t.tileWhite[lang]}</span>
         </a>
-        <a href="/categories/colorful-henna" class="hero-tile group aspect-[3/4] translate-y-8 overflow-hidden rounded-3xl bg-gradient-to-br from-rose-400 via-fuchsia-500 to-amber-400 shadow-xl">
-          <img src="/images/pink.jpg" alt="Colourful henna design" loading="eager" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <a href={localizePath('/categories/colorful-henna', lang)} class="hero-tile group aspect-[3/4] translate-y-8 overflow-hidden rounded-3xl bg-gradient-to-br from-rose-400 via-fuchsia-500 to-amber-400 shadow-xl">
+          <Picture src="/images/pink.jpg" alt={t.tileColorAlt[lang]} sizes={tileSizes} loading="eager" width={886} height={1400} class={tileImg} />
           <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
-          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">Glitter & colour</span>
+          <span class="hero-tile-label font-display text-xl text-cream drop-shadow-lg">{t.tileColor[lang]}</span>
         </a>
       </div>
     </div>
@@ -101,7 +106,6 @@ import { site } from '../lib/site';
   .hero-tile:hover {
     box-shadow: 0 20px 50px -12px rgba(139, 69, 19, 0.35);
   }
-  /* Make hover lift play nicely with the staggered translate-y-8 tiles */
   .hero-tile:not(.translate-y-8):hover { transform: translateY(-4px); }
   .hero-tile.translate-y-8:hover { transform: translateY(calc(2rem - 4px)); }
 

@@ -1,20 +1,35 @@
 ---
 import Logo from './Logo.astro';
-import { site } from '../lib/site';
+import { getSite } from '../lib/site';
+import { getLang, altLangPath, dict, localizePath } from '../lib/i18n';
+
+const lang = getLang(Astro);
+const otherLang = lang === 'sq' ? 'en' : 'sq';
+const site = getSite(lang);
+const t = dict.nav;
 
 const links = [
-  { href: '/#categories', label: 'Categories' },
-  { href: '/#gallery', label: 'Gallery' },
-  { href: '/#events', label: 'Events' },
-  { href: '/#about', label: 'About' },
-  { href: '/#hours', label: 'Hours' },
-  { href: '/contact', label: 'Contact' },
+  { href: localizePath('/#categories', lang), label: t.categories[lang], alt: t.categories[otherLang] },
+  { href: localizePath('/#gallery',    lang), label: t.gallery[lang],    alt: t.gallery[otherLang]    },
+  { href: localizePath('/#events',     lang), label: t.events[lang],     alt: t.events[otherLang]     },
+  { href: localizePath('/#about',      lang), label: t.about[lang],      alt: t.about[otherLang]      },
+  { href: localizePath('/#hours',      lang), label: t.hours[lang],      alt: t.hours[otherLang]      },
+  { href: localizePath('/contact',     lang), label: t.contact[lang],    alt: t.contact[otherLang]    },
 ];
+
+const bookLabel = t.bookNow[lang];
+const bookAltLabel = t.bookNow[otherLang];
+
+const contactHref = localizePath('/contact', lang);
+const homeHref = localizePath('/', lang);
+
+const sqHref = localizePath(Astro.url.pathname, 'sq');
+const enHref = localizePath(Astro.url.pathname, 'en');
 ---
 
 <header class="sticky top-0 z-40 border-b border-henna-100/60 bg-cream/80 backdrop-blur">
-  <div class="container-prose flex h-16 items-center justify-between">
-    <a href="/" class="flex items-center gap-3" aria-label={site.name}>
+  <div class="container-prose flex h-16 items-center justify-between gap-3">
+    <a href={homeHref} class="flex items-center gap-3" aria-label={site.name}>
       <Logo size={40} />
       <span class="flex flex-col leading-tight">
         <span class="font-display text-lg text-henna-700">{site.name}</span>
@@ -22,92 +37,172 @@ const links = [
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex" aria-label="Main">
+    <nav class="hidden items-center gap-6 md:flex" aria-label={t.main[lang]}>
       {
         links.map((l) => (
           <a
             href={l.href}
-            class="text-sm font-medium text-ink/70 transition hover:text-henna-600"
+            data-alt={l.alt}
+            class="nav-link text-sm font-medium text-ink/70 transition hover:text-henna-600"
           >
-            {l.label}
+            <span>{l.label}</span>
           </a>
         ))
       }
-      <a href="/contact" class="btn-primary !py-2 !px-4">Book now</a>
+      <div class="lang-switch inline-flex items-center rounded-full border border-henna-200 bg-white/60 p-0.5 text-[11px] font-semibold uppercase tracking-widest" role="group" aria-label="Language">
+        <a
+          href={sqHref}
+          rel="alternate"
+          hreflang="sq"
+          aria-current={lang === 'sq' ? 'true' : undefined}
+          class={`lang-pill ${lang === 'sq' ? 'active' : ''}`}
+        >
+          <span aria-hidden="true">🇦🇱</span><span>SQ</span>
+        </a>
+        <a
+          href={enHref}
+          rel="alternate"
+          hreflang="en"
+          aria-current={lang === 'en' ? 'true' : undefined}
+          class={`lang-pill ${lang === 'en' ? 'active' : ''}`}
+        >
+          <span aria-hidden="true">🇬🇧</span><span>EN</span>
+        </a>
+      </div>
+      <a href={contactHref} data-alt={bookAltLabel} class="btn-primary book-cta nav-link !py-2 !px-4">
+        <span>{bookLabel}</span>
+      </a>
     </nav>
 
-    <button
-      type="button"
-      id="navbar-toggle"
-      class="inline-flex h-10 w-10 items-center justify-center rounded-md text-henna-700 md:hidden"
-      aria-label="Toggle menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <svg
-        id="navbar-icon-open"
-        class="block"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-      <svg
-        id="navbar-icon-close"
-        class="hidden"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-  </div>
+    <div class="flex items-center gap-2 md:hidden">
+      <div class="lang-switch inline-flex items-center rounded-full border border-henna-200 bg-white/60 p-0.5 text-[10px] font-semibold uppercase tracking-widest" role="group" aria-label="Language">
+        <a
+          href={sqHref}
+          rel="alternate"
+          hreflang="sq"
+          aria-current={lang === 'sq' ? 'true' : undefined}
+          class={`lang-pill ${lang === 'sq' ? 'active' : ''}`}
+        >
+          <span aria-hidden="true">🇦🇱</span><span>SQ</span>
+        </a>
+        <a
+          href={enHref}
+          rel="alternate"
+          hreflang="en"
+          aria-current={lang === 'en' ? 'true' : undefined}
+          class={`lang-pill ${lang === 'en' ? 'active' : ''}`}
+        >
+          <span aria-hidden="true">🇬🇧</span><span>EN</span>
+        </a>
+      </div>
 
-  <div id="mobile-menu" class="hidden border-t border-henna-100 bg-cream md:hidden">
-    <div class="container-prose flex flex-col gap-1 py-3">
-      {
-        links.map((l) => (
-          <a
-            href={l.href}
-            class="rounded-md px-3 py-2 text-sm font-medium text-ink/80 hover:bg-henna-50"
+      <details class="navbar-mobile relative md:hidden">
+        <summary
+          class="inline-flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md text-henna-700"
+          aria-label={t.toggleMenu[lang]}
+        >
+          <svg
+            class="navbar-icon-open"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
-            {l.label}
-          </a>
-        ))
-      }
-      <a href="/contact" class="btn-primary mt-2 self-start">Book now</a>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg
+            class="navbar-icon-close"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </summary>
+        <div class="absolute right-0 top-12 w-screen max-w-xs rounded-2xl border border-henna-100 bg-cream shadow-lg">
+          <div class="flex flex-col gap-1 p-3">
+            {
+              links.map((l) => (
+                <a
+                  href={l.href}
+                  class="rounded-md px-3 py-2 text-sm font-medium text-ink/80 hover:bg-henna-50"
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+            <a href={contactHref} class="btn-primary mt-2 self-start">{t.bookNow[lang]}</a>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </header>
 
-<script>
-  const toggle = document.getElementById('navbar-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('navbar-icon-open');
-  const iconClose = document.getElementById('navbar-icon-close');
+<style>
+  /* CSS-only mobile menu using <details>; no JavaScript needed. */
+  .navbar-mobile > summary { list-style: none; }
+  .navbar-mobile > summary::-webkit-details-marker { display: none; }
+  .navbar-mobile > summary .navbar-icon-close { display: none; }
+  .navbar-mobile[open] > summary .navbar-icon-open  { display: none; }
+  .navbar-mobile[open] > summary .navbar-icon-close { display: block; }
 
-  toggle?.addEventListener('click', () => {
-    if (!menu || !iconOpen || !iconClose) return;
-    const nowOpen = menu.classList.toggle('hidden') === false;
-    iconOpen.classList.toggle('hidden', nowOpen);
-    iconOpen.classList.toggle('block', !nowOpen);
-    iconClose.classList.toggle('hidden', !nowOpen);
-    iconClose.classList.toggle('block', nowOpen);
-    toggle.setAttribute('aria-expanded', String(nowOpen));
-  });
-</script>
+  /* Side-by-side language switch — both pills always visible so the
+     navbar width never changes when toggling. The active pill is
+     highlighted; the inactive one is a link. */
+  .lang-switch .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 9999px;
+    color: rgb(85 40 11 / 0.55);
+    transition: color 200ms, background-color 200ms;
+  }
+  .lang-switch .lang-pill:hover { color: rgb(85 40 11); }
+  .lang-switch .lang-pill.active {
+    background: #8b4513;
+    color: #fdf8f3;
+    pointer-events: none;
+  }
+
+  /* Book CTA: lock width so SQ "Rezervo" and EN "Book now" occupy the
+     same horizontal space. The data-alt ghost on .nav-link does the
+     measurement; this min-width is the floor in case the ghost doesn't
+     load (e.g. before CSS) so it never collapses. */
+  .book-cta { min-width: 6.5rem; }
+
+  /* Each nav link reserves space for both languages, so the navbar
+     width stays identical when toggling SQ ↔ EN. The ::before
+     pseudo-element renders the alt-language label invisibly stacked
+     in the same grid cell, contributing only to width. */
+  .nav-link {
+    display: inline-grid;
+    grid-template-areas: 'stack';
+    text-align: center;
+  }
+  .nav-link > span,
+  .nav-link::before {
+    grid-area: stack;
+  }
+  .nav-link::before {
+    content: attr(data-alt);
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+  }
+</style>

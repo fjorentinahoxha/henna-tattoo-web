@@ -1,6 +1,11 @@
 ---
 import Logo from './Logo.astro';
-import { site } from '../lib/site';
+import { getSite } from '../lib/site';
+import { getLang, dict, fmt, localizePath } from '../lib/i18n';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const t = dict.footer;
 
 const year = new Date().getFullYear();
 ---
@@ -16,23 +21,22 @@ const year = new Date().getFullYear();
         </span>
       </div>
       <p class="mt-3 max-w-sm text-sm text-ink/70">
-        Handcrafted henna tattoos for weddings, festivals, events and everyday
-        magic. Based in {site.location.shortLabel}.
+        {fmt(t.blurb[lang], { place: site.location.shortLabel })}
       </p>
     </div>
 
     <div>
-      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">Explore</h4>
+      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.explore[lang]}</h4>
       <ul class="mt-4 space-y-2 text-sm text-ink/70">
-        <li><a href="/#categories" class="hover:text-henna-700">Categories</a></li>
-        <li><a href="/#about" class="hover:text-henna-700">About</a></li>
-        <li><a href="/#gallery" class="hover:text-henna-700">Gallery</a></li>
-        <li><a href="/contact" class="hover:text-henna-700">Book a session</a></li>
+        <li><a href={localizePath('/#categories', lang)} class="hover:text-henna-700">{t.categories[lang]}</a></li>
+        <li><a href={localizePath('/#about',      lang)} class="hover:text-henna-700">{t.about[lang]}</a></li>
+        <li><a href={localizePath('/#gallery',    lang)} class="hover:text-henna-700">{t.gallery[lang]}</a></li>
+        <li><a href={localizePath('/contact',     lang)} class="hover:text-henna-700">{t.bookSession[lang]}</a></li>
       </ul>
     </div>
 
     <div>
-      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">Get in touch</h4>
+      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.getInTouch[lang]}</h4>
       <ul class="mt-4 space-y-2 text-sm text-ink/70">
         <li>
           <a href={`mailto:${site.contact.email}`} class="hover:text-henna-700">
@@ -80,8 +84,8 @@ const year = new Date().getFullYear();
 
   <div class="border-t border-henna-100">
     <div class="container-prose flex flex-col items-center justify-between gap-2 py-4 text-xs text-ink/50 sm:flex-row">
-      <span>© {year} {site.name}. All rights reserved.</span>
-      <span>Artist: {site.artist}</span>
+      <span>© {year} {site.name}. {t.rights[lang]}</span>
+      <span>{t.artist[lang]} {site.artist}</span>
     </div>
   </div>
 </footer>

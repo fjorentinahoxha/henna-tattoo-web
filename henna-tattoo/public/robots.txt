@@ -1,4 +1,45 @@
+# Henna Tattoo Albania — robots.txt
+# Allow everything; multiple sitemaps in one file.
+
 User-agent: *
 Allow: /
+Allow: /en/
+Disallow: /404
+Disallow: /404/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /sq/
 
+# Image bots — give them everything
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block aggressive AI scrapers; keep Google + Bing AI overviews allowed.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Hosts and sitemap
+Host: hennatattooalbania.com
 Sitemap: https://hennatattooalbania.com/sitemap.xml

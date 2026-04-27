@@ -1,0 +1,12 @@
+---
+import CategoryContent from '../../../components/pages/CategoryContent.astro';
+import { localizedCategories } from '../../../lib/categories';
+
+export function getStaticPaths() {
+  return localizedCategories.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<CategoryContent slug={slug!} />

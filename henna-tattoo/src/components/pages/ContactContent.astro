@@ -1,0 +1,239 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCategories } from '../../lib/categories';
+import { getSite } from '../../lib/site';
+import { getLang, dict, localizePath } from '../../lib/i18n';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const categories = getCategories(lang);
+const t = dict.contact;
+---
+
+<Layout
+  title={`${t.metaTitlePrefix[lang]} — ${site.name}`}
+  description={t.metaDescription[lang]}
+>
+  <section class="py-16 sm:py-24">
+    <div class="container-prose grid gap-12 lg:grid-cols-2">
+      <div>
+        <span class="eyebrow">{t.eyebrow[lang]}</span>
+        <h1 class="mt-3 text-4xl font-display text-henna-700 sm:text-5xl">
+          {t.title[lang]}
+        </h1>
+        <p class="mt-4 max-w-md text-ink/70">{t.intro[lang]}</p>
+
+        <div class="mt-10 grid gap-5 sm:grid-cols-2">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.fieldEmail[lang]}</p>
+            <a
+              href={`mailto:${site.contact.email}`}
+              class="mt-1 block text-ink/80 hover:text-henna-700"
+            >
+              {site.contact.email}
+            </a>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.fieldPhone[lang]}</p>
+            <a
+              href={`tel:${site.contact.phoneIntl}`}
+              class="mt-1 block text-ink/80 hover:text-henna-700"
+            >
+              {site.contact.phone}
+            </a>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.fieldInsta[lang]}</p>
+            <a
+              href={site.social.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="mt-1 block text-ink/80 hover:text-henna-700"
+            >
+              @{site.social.instagramHandle}
+            </a>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.fieldTiktok[lang]}</p>
+            <a
+              href={site.social.tiktokUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="mt-1 block text-ink/80 hover:text-henna-700"
+            >
+              @{site.social.tiktokHandle}
+            </a>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.fieldStudio[lang]}</p>
+            <a
+              href={site.location.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="mt-1 block text-ink/80 hover:text-henna-700"
+            >
+              {site.location.label}
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-henna-100 bg-white p-5 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.workingHours[lang]}</p>
+          <ul class="mt-3 space-y-1 text-sm text-ink/70">
+            <li class="flex justify-between"><span>{t.monFri[lang]}</span><span class="font-medium text-ink">18:00 – 22:00</span></li>
+            <li class="flex justify-between"><span>{t.satSun[lang]}</span><span class="font-medium text-ink">{t.twentyFour[lang]}</span></li>
+          </ul>
+          <p class="mt-3 text-xs text-henna-600">{t.apptOnly[lang]}</p>
+        </div>
+
+        <div class="mt-4 overflow-hidden rounded-2xl border border-henna-100 shadow-sm">
+          <iframe
+            src={site.location.embedUrl}
+            title={t.mapTitle[lang]}
+            class="h-64 w-full"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <form
+        id="booking-form"
+        data-wa-header={t.waHeader[lang]}
+        data-wa-name={t.waName[lang]}
+        data-wa-email={t.waEmail[lang]}
+        data-wa-style={t.waStyle[lang]}
+        data-wa-date={t.waDate[lang]}
+        data-wa-placement={t.waPlacement[lang]}
+        data-wa-message={t.waMessage[lang]}
+        data-wa-phone={site.contact.whatsappNumber}
+        class="rounded-3xl border border-henna-100 bg-white p-6 shadow-sm sm:p-8"
+      >
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">{t.name[lang]}</span>
+            <input
+              name="name"
+              required
+              class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+            />
+          </label>
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">{t.fieldEmail[lang]}</span>
+            <input
+              name="email"
+              type="email"
+              required
+              class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+            />
+          </label>
+        </div>
+
+        <label class="mt-4 block">
+          <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">
+            {t.style[lang]}
+          </span>
+          <select
+            name="style"
+            class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+          >
+            <option value="" selected disabled>{t.chooseCategory[lang]}</option>
+            {categories.map((c) => <option value={c.title}>{c.title}</option>)}
+            <option value={t.notSure[lang]}>{t.notSure[lang]}</option>
+          </select>
+        </label>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">{t.eventDate[lang]}</span>
+            <input
+              name="date"
+              type="date"
+              class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+            />
+          </label>
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">{t.placement[lang]}</span>
+            <input
+              name="placement"
+              placeholder={t.placementPlaceholder[lang]}
+              class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+            />
+          </label>
+        </div>
+
+        <label class="mt-4 block">
+          <span class="text-xs font-semibold uppercase tracking-widest text-henna-600">
+            {t.tellMe[lang]}
+          </span>
+          <textarea
+            name="message"
+            rows="5"
+            required
+            class="mt-1 w-full rounded-lg border border-henna-200 bg-cream px-3 py-2 text-sm focus:border-henna-500 focus:outline-none focus:ring-2 focus:ring-henna-200"
+            placeholder={t.messagePlaceholder[lang]}
+          ></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary mt-6 w-full">{t.sendBtn[lang]}</button>
+        <p class="mt-3 text-center text-xs text-ink/50">
+          {t.sendNotePrefix[lang]} {' '}
+          <a
+            href={`mailto:${site.contact.email}`}
+            class="font-semibold text-henna-600 hover:text-henna-700"
+          >
+            {site.contact.email}
+          </a>.
+        </p>
+      </form>
+    </div>
+
+    <div class="container-prose mt-16">
+      <p class="text-center text-sm text-ink/60">
+        {t.notSureFitPrefix[lang]} {' '}
+        <a href={localizePath('/#categories', lang)} class="font-semibold text-henna-600 hover:text-henna-700">
+          {t.browseAll[lang]}
+        </a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('booking-form') as HTMLFormElement | null;
+  if (form) {
+    const labels = {
+      header:    form.dataset.waHeader    ?? '',
+      name:      form.dataset.waName      ?? 'Name',
+      email:     form.dataset.waEmail     ?? 'Email',
+      style:     form.dataset.waStyle     ?? 'Style',
+      date:      form.dataset.waDate      ?? 'Date',
+      placement: form.dataset.waPlacement ?? 'Placement',
+      message:   form.dataset.waMessage   ?? 'Message',
+    };
+    const phone = form.dataset.waPhone ?? '';
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const get = (key: string) => (data.get(key) as string) || '—';
+
+      const text = [
+        labels.header,
+        '',
+        `*${labels.name}:* ${get('name')}`,
+        `*${labels.email}:* ${get('email')}`,
+        `*${labels.style}:* ${get('style')}`,
+        `*${labels.date}:* ${get('date')}`,
+        `*${labels.placement}:* ${get('placement')}`,
+        '',
+        `*${labels.message}:*`,
+        get('message'),
+      ].join('\n');
+
+      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(waUrl, '_blank');
+    });
+  }
+</script>

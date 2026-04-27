@@ -1,4 +1,7 @@
 ---
+import { getLang, dict } from '../lib/i18n';
+import Picture from './Picture.astro';
+
 interface Props {
   images: string[];
   accent: string;
@@ -6,37 +9,24 @@ interface Props {
 }
 
 const { images, accent, title } = Astro.props;
+const lang = getLang(Astro);
+const t = dict.gallery;
 ---
 
 {
   images.length === 0 ? (
     <div class="rounded-2xl border border-dashed border-henna-200 bg-henna-50/40 p-10 text-center">
-      <p class="font-display text-xl text-henna-700">Gallery coming soon</p>
-      <p class="mt-2 text-sm text-ink/60">
-        Photos of {title.toLowerCase()} designs will appear here. Drop images
-        into{' '}
-        <code class="rounded bg-henna-100 px-1 py-0.5 text-xs text-henna-700">
-          public/images/
-        </code>{' '}
-        and add their paths to the{' '}
-        <code class="rounded bg-henna-100 px-1 py-0.5 text-xs text-henna-700">
-          gallery
-        </code>{' '}
-        array in{' '}
-        <code class="rounded bg-henna-100 px-1 py-0.5 text-xs text-henna-700">
-          src/lib/categories.ts
-        </code>.
-      </p>
+      <p class="font-display text-xl text-henna-700">{t.soonTitle[lang]}</p>
     </div>
   ) : (
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
       {images.map((src, i) => (
         <div class={`relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br ${accent}`}>
-          <img
+          <Picture
             src={src}
-            alt={`${title} design ${i + 1}`}
+            alt={`${title} ${t.altSuffix[lang]} ${i + 1}`}
+            sizes="(min-width: 640px) 33vw, 50vw"
             loading="lazy"
-            decoding="async"
             class="h-full w-full object-cover transition duration-500 hover:scale-105"
           />
         </div>

@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PriceList from '../PriceList.astro';
+import PriceChart from '../PriceChart.astro';
+import DesignGallery from '../DesignGallery.astro';
+import Faq from '../Faq.astro';
+import Picture from '../Picture.astro';
+import { getCategory, getCategories } from '../../lib/categories';
+import { getSite } from '../../lib/site';
+import { getLang, dict, localizePath } from '../../lib/i18n';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const lang = getLang(Astro);
+const site = getSite(lang);
+const category = getCategory(slug, lang);
+
+if (!category) {
+  return Astro.redirect(localizePath('/', lang));
+}
+
+const others = getCategories(lang).filter((c) => c.slug !== category.slug);
+const t = dict.category;
+
+const pageTitle = category.metaTitle ?? `${category.title} ${t.inTirana[lang]} — ${site.name}`;
+const pageDescription = category.metaDescription ?? category.description;
+const shareImage = category.heroImage ?? category.image ?? '/images/logo.svg';
+const pageURL = new URL(Astro.url.pathname, Astro.site).toString();
+const pageH1 = category.h1 ?? `${category.title} ${t.inTirana[lang]}`;
+
+const lowPrice  = category.priceList[0]?.price.replace(/[^\d]/g, '') ?? '10';
+const highPrice = category.priceList[category.priceList.length - 1]?.price.replace(/[^\d]/g, '') ?? '45';
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: `${category.title} tattoo`,
+  name: `${category.title} — ${site.name}`,
+  description: category.longDescription,
+  url: pageURL,
+  image: new URL(shareImage, Astro.site).toString(),
+  provider: { '@id': Astro.site?.toString() },
+  areaServed: site.serviceAreas.map((a) => ({ '@type': 'City', name: `${a.name}, Albania` })),
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'EUR',
+    lowPrice,
+    highPrice,
+    offerCount: category.priceList.length,
+  },
+  ...(category.alternativeNames?.length ? { alternateName: category.alternativeNames } : {}),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t.breadcrumbHome[lang], item: new URL(localizePath('/', lang), Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: t.breadcrumbCategories[lang], item: new URL(localizePath('/#categories', lang), Astro.site).toString() },
+    { '@type': 'ListItem', position: 3, name: category.title, item: pageURL },
+  ],
+};
+
+const faqLd = category.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: category.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+
+const allLd = faqLd ? [serviceLd, breadcrumbLd, faqLd] : [serviceLd, breadcrumbLd];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image={shareImage}
+  imageAlt={`${category.title} — ${site.name}`}
+  preloadImage={category.heroImage ?? category.image}
+  jsonLd={allLd}
+>
+  <section class={`relative overflow-hidden bg-gradient-to-br ${category.accent}`}>
+    {
+      (category.heroImage || category.image) && (
+        <>
+          <Picture
+            src={category.heroImage ?? category.image!}
+            alt=""
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/40"></div>
+        </>
+      )
+    }
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.12),transparent_60%)]"></div>
+    <div class="container-prose relative py-20 sm:py-28">
+      <a
+        href={localizePath('/#categories', lang)}
+        class="inline-flex items-center gap-2 text-sm font-medium text-cream/90 hover:text-cream"
+      >
+        <span aria-hidden="true">←</span> {t.backLink[lang]}
+      </a>
+      <h1 class="mt-6 text-5xl font-display text-cream drop-shadow-lg sm:text-6xl">
+        {pageH1}
+      </h1>
+      <p class="mt-3 max-w-xl text-lg italic text-cream/90 drop-shadow">
+        {category.tagline}
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container-prose grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <span class="eyebrow">{t.aboutEyebrow[lang]}</span>
+        <h2 class="mt-3 text-3xl font-display text-henna-700">
+          {category.description}
+        </h2>
+        <p class="mt-4 text-ink/70">{category.intro ?? category.longDescription}</p>
+
+        {category.occasions?.length && (
+          <div class="mt-6">
+            <p class="text-xs font-semibold uppercase tracking-widest text-henna-500">{t.occasionsHeading[lang]}</p>
+            <ul class="mt-3 flex flex-wrap gap-2">
+              {category.occasions.map((occ) => (
+                <li class="rounded-full bg-henna-50 px-3 py-1 text-xs font-medium text-henna-700">
+                  {occ}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="mt-10">
+          <span class="eyebrow">{t.galleryEyebrow[lang]}</span>
+          <h3 class="mt-2 text-2xl font-display text-henna-700">{t.designsHeading[lang]}</h3>
+          <div class="mt-4">
+            <DesignGallery
+              images={category.gallery}
+              accent={category.accent}
+              title={category.title}
+            />
+          </div>
+        </div>
+      </div>
+
+      <aside class="lg:sticky lg:top-24 lg:self-start">
+        <span class="eyebrow">{t.pricingEyebrow[lang]}</span>
+        <h3 class="mt-2 text-2xl font-display text-henna-700">
+          {t.pricingFromPrefix[lang]} {category.startingAt}
+        </h3>
+        <p class="mt-2 text-sm text-ink/60">{t.pricingNote[lang]}</p>
+
+        {
+          category.priceChart && (
+            <div class="mt-5">
+              <PriceChart
+                src={category.priceChart}
+                title={category.title}
+                accent={category.accent}
+              />
+            </div>
+          )
+        }
+
+        <div class="mt-5">
+          <PriceList items={category.priceList} />
+        </div>
+        <a href={localizePath('/contact', lang)} class="btn-primary mt-6 w-full">
+          {t.bookCtaPrefix[lang]} {category.title.toLowerCase()}
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  {category.faqs?.length && (
+    <Faq items={category.faqs} className="bg-henna-50/40 border-t border-henna-100" />
+  )}
+
+  <section class="border-t border-henna-100 bg-henna-50/40 py-16">
+    <div class="container-prose">
+      <div class="flex items-end justify-between">
+        <h2 class="text-2xl font-display text-henna-700 sm:text-3xl">
+          {t.otherTitle[lang]}
+        </h2>
+        <a
+          href={localizePath('/#categories', lang)}
+          class="text-sm font-semibold text-henna-600 hover:text-henna-700"
+        >
+          {t.viewAll[lang]}
+        </a>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          others.map((c) => (
+            <a
+              href={localizePath(`/categories/${c.slug}`, lang)}
+              class={`group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br ${c.accent} text-cream shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg`}
+            >
+              {c.image ? (
+                <>
+                  <Picture
+                    src={c.image}
+                    alt={c.title}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    loading="lazy"
+                    class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+                </>
+              ) : (
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              )}
+
+              <div class="relative flex h-full flex-col justify-between p-5">
+                <p class="text-[10px] font-semibold uppercase tracking-[0.25em] text-cream/90 drop-shadow">
+                  {c.tagline.split(' ').slice(0, 3).join(' ')}…
+                </p>
+                <div>
+                  <p class="font-display text-2xl drop-shadow-md">{c.title}</p>
+                  <p class="mt-1 text-sm text-cream/90 drop-shadow">
+                    {t.fromPrefix[lang]} {c.startingAt}
+                  </p>
+                </div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -6,16 +6,24 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "images": "node scripts/optimize-images.mjs",
+    "images:force": "node scripts/optimize-images.mjs --force",
+    "images:dry": "node scripts/optimize-images.mjs --dry",
+    "favicons": "node scripts/generate-favicons.mjs",
+    "prebuild": "node scripts/optimize-images.mjs && node scripts/generate-favicons.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.4",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/playfair-display": "^5.2.8",
     "astro": "^4.16.18",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
-    "@types/node": "^22"
+    "@types/node": "^22",
+    "sharp": "^0.32.6"
   }
 }

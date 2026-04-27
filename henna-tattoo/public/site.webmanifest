@@ -1,0 +1,20 @@
+{
+  "name": "Henna Tattoo Albania",
+  "short_name": "Henna Albania",
+  "description": "Professional henna tattoo artist in Tirana — bridal mehndi, jagua, white, glitter and colourful henna.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf8f3",
+  "theme_color": "#8b4513",
+  "lang": "sq",
+  "dir": "ltr",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["beauty", "lifestyle", "art"],
+  "icons": [
+    { "src": "/icon-192.png",          "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png",          "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/images/logo.svg",       "sizes": "any",     "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

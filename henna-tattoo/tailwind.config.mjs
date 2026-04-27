@@ -20,8 +20,8 @@ export default {
         ink:   '#1a120b',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Playfair Display Variable"', '"Playfair Display"', '"Playfair Fallback"', 'Georgia', 'serif'],
+        sans: ['"Inter Variable"', 'Inter', '"Inter Fallback"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       backgroundImage: {
         'paisley': "radial-gradient(ellipse at top, rgba(139,69,19,0.08), transparent 60%), radial-gradient(ellipse at bottom right, rgba(211,155,106,0.10), transparent 60%)",

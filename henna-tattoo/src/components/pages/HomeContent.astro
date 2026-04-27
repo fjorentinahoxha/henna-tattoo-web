@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../Hero.astro';
+import BackgroundMehndi from '../BackgroundMehndi.astro';
+import CategoryCard from '../CategoryCard.astro';
+import Picture from '../Picture.astro';
+import { getCategories } from '../../lib/categories';
+import { getEvents } from '../../lib/events';
+import { getSite } from '../../lib/site';
+import { getLang, dict, fmt, localizePath } from '../../lib/i18n';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const categories = getCategories(lang);
+const events = getEvents(lang);
+const t = dict.home;
+const days = t.days;
+
+const dayCards = [
+  { day: days.mon[lang],    hours: '18:00 – 22:00',   bg: 'bg-amber-50',   border: 'border-amber-200',   text: 'text-amber-900' },
+  { day: days.tue[lang],    hours: '18:00 – 22:00',   bg: 'bg-rose-50',    border: 'border-rose-200',    text: 'text-rose-900'  },
+  { day: days.wed[lang],    hours: '18:00 – 22:00',   bg: 'bg-violet-50',  border: 'border-violet-200',  text: 'text-violet-900'},
+  { day: days.thu[lang],    hours: '18:00 – 22:00',   bg: 'bg-teal-50',    border: 'border-teal-200',    text: 'text-teal-900'  },
+  { day: days.fri[lang],    hours: '18:00 – 22:00',   bg: 'bg-sky-50',     border: 'border-sky-200',     text: 'text-sky-900'   },
+  { day: days.satSun[lang], hours: t.twentyFourHours[lang], bg: 'bg-henna-50',   border: 'border-henna-300',   text: 'text-henna-800' },
+];
+
+const galleryImages = [
+  { src: '/images/natural/IMG_2995.jpg',   alt: lang === 'sq' ? 'Dizajn me kana kafe'      : 'Brown henna design'    },
+  { src: '/images/jagua/IMG_2975.jpg',     alt: lang === 'sq' ? 'Dizajn me kana jagua'     : 'Jagua henna design'    },
+  { src: '/images/white/IMG_0604.jpg',     alt: lang === 'sq' ? 'Dizajn me kana të bardhë' : 'White henna design'    },
+  { src: '/images/colorful/IMG_2983.jpg',  alt: lang === 'sq' ? 'Dizajn me kana me ngjyra' : 'Colorful henna design' },
+  { src: '/images/natural/IMG_8514.jpeg',  alt: lang === 'sq' ? 'Dizajn me kana kafe'      : 'Brown henna design'    },
+  { src: '/images/glitter/IMG_0597.jpeg',  alt: lang === 'sq' ? 'Dizajn me kana me xixëllima' : 'Glitter henna design' },
+  { src: '/images/jagua/IMG_7269.jpeg',    alt: lang === 'sq' ? 'Dizajn me kana jagua'     : 'Jagua henna design'    },
+  { src: '/images/colorful/IMG_5573.jpeg', alt: lang === 'sq' ? 'Dizajn me kana me ngjyra' : 'Colorful henna design' },
+];
+---
+
+<Layout
+  preloadImage="/images/brown.jpg"
+  preloadImageType="image/jpeg"
+>
+  <BackgroundMehndi />
+  <Hero />
+
+  <section id="categories" class="py-10 sm:py-12">
+    <div class="container-prose">
+      <div class="max-w-2xl">
+        <span class="eyebrow">{t.stylesEyebrow[lang]}</span>
+        <h2 class="section-title mt-3">{t.stylesTitle[lang]}</h2>
+        <p class="mt-4 text-lg text-ink/70">{t.stylesIntro[lang]}</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {categories.map((category) => <CategoryCard category={category} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="py-10 sm:py-12">
+    <div class="container-prose">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span class="eyebrow">{t.galleryEyebrow[lang]}</span>
+          <h2 class="section-title mt-3">{t.galleryTitle[lang]}</h2>
+        </div>
+        <a href={localizePath('/contact', lang)} class="btn-secondary">{t.galleryCta[lang]}</a>
+      </div>
+
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {
+          galleryImages.map(({ src, alt }) => (
+            <div class="aspect-square overflow-hidden rounded-2xl shadow-sm bg-henna-100">
+              <Picture
+                src={src}
+                alt={alt}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                loading="lazy"
+                class="h-full w-full object-cover transition duration-500 hover:scale-105"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="events" class="bg-henna-50/50 py-10 sm:py-12">
+    <div class="container-prose">
+      <div class="max-w-2xl">
+        <span class="eyebrow">{t.eventsEyebrow[lang]}</span>
+        <h2 class="section-title mt-3">{t.eventsTitle[lang]}</h2>
+        <p class="mt-4 text-lg text-ink/70">
+          {fmt(t.eventsIntro[lang], { name: site.name })}
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          events.map(({ title, description, url }) => {
+            const embedSrc = `${url.replace(/\/$/, '')}/embed`;
+            return (
+              <figure class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-henna-100 transition hover:-translate-y-0.5 hover:shadow-md">
+                <div class="relative h-[390px] overflow-hidden rounded-t-3xl bg-henna-50">
+                  <iframe
+                    src={embedSrc}
+                    class="absolute inset-x-0 -top-14 h-[620px] w-full border-0"
+                    loading="lazy"
+                    allow="encrypted-media; picture-in-picture; web-share"
+                    allowtransparency="true"
+                    scrolling="no"
+                    title={title}
+                  ></iframe>
+                </div>
+                <figcaption class="px-5 py-4">
+                  <p class="font-display text-base text-henna-700">{title}</p>
+                  {description && (
+                    <p class="mt-1 text-sm text-ink/60">{description}</p>
+                  )}
+                </figcaption>
+              </figure>
+            );
+          })
+        }
+      </div>
+
+      <p class="mt-10 text-center text-sm text-ink/50">
+        {t.eventsCtaPrefix[lang]} {' '}
+        <a href={localizePath('/contact', lang)} class="font-semibold text-henna-600 hover:text-henna-700">
+          {t.eventsCtaLink[lang]}
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section id="about" class="bg-henna-50/60 py-10 sm:py-12">
+    <div class="container-prose grid gap-12 md:grid-cols-2 md:items-center">
+      <div>
+        <span class="eyebrow">{t.aboutEyebrow[lang]}</span>
+        <h2 class="section-title mt-3">{t.aboutTitle[lang]}</h2>
+        <p class="mt-4 text-ink/70">
+          {fmt(t.aboutP1[lang], { site: site.name, artist: site.artist, place: site.location.shortLabel })}
+        </p>
+        <p class="mt-4 text-ink/70">{t.aboutP2[lang]}</p>
+        <p class="mt-4 text-sm text-henna-600">✦ {site.credentials}</p>
+        <div class="mt-8 flex gap-3">
+          <a href={localizePath('/contact', lang)} class="btn-primary">{t.aboutCta1[lang]}</a>
+          <a href={localizePath('/#gallery', lang)} class="btn-secondary">{t.aboutCta2[lang]}</a>
+        </div>
+      </div>
+      <figure>
+        <div
+          class="overflow-hidden rounded-3xl bg-cream shadow-lg ring-1 ring-henna-200/60"
+          style="aspect-ratio: 1400 / 1081"
+        >
+          <Picture
+            src="/images/certeficate.png"
+            alt={fmt(t.aboutCertAlt[lang], { artist: site.artist })}
+            sizes="(min-width: 768px) 28rem, 100vw"
+            loading="lazy"
+            width={1400}
+            height={1081}
+            class="h-full w-full object-contain"
+          />
+        </div>
+        <figcaption class="mt-3 text-center text-sm text-ink/50">
+          {t.aboutCertCaption[lang]}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="hours" class="py-10 sm:py-12">
+    <div class="container-prose">
+      <div class="text-center">
+        <span class="eyebrow">{t.hoursEyebrow[lang]}</span>
+        <h2 class="section-title mt-3">{t.hoursTitle[lang]}</h2>
+        <p class="mx-auto mt-4 max-w-md text-ink/60">
+          {t.hoursIntroPrefix[lang]} <strong class="text-henna-700">{t.hoursStrong[lang]}</strong>
+          {t.hoursIntroSuffix[lang]}
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {dayCards.map(({ day, hours, bg, border, text }) => (
+          <div class={`flex flex-col items-center gap-3 rounded-2xl border ${bg} ${border} px-4 py-6 shadow-sm`}>
+            <span class={`text-xs font-semibold uppercase tracking-widest ${text} opacity-70`}>{day}</span>
+            <span class={`font-display text-lg font-bold ${text}`}>{hours}</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-8 flex items-center justify-center gap-2 text-sm text-ink/50">
+        <span class="inline-block h-px w-8 bg-henna-300"></span>
+        {t.hoursFooter[lang]}
+        <span class="inline-block h-px w-8 bg-henna-300"></span>
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="container-prose">
+      <div class="relative overflow-hidden rounded-3xl bg-henna-600 px-8 py-14 text-cream sm:px-14">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.15),transparent_50%)]"></div>
+        <div class="relative flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+          <div class="max-w-xl">
+            <h2 class="text-3xl font-display sm:text-4xl">{t.ctaTitle[lang]}</h2>
+            <p class="mt-3 text-cream/80">{t.ctaIntro[lang]}</p>
+          </div>
+          <a
+            href={localizePath('/contact', lang)}
+            class="inline-flex items-center justify-center rounded-full bg-cream px-6 py-3 text-sm font-semibold uppercase tracking-widest text-henna-700 transition hover:bg-white"
+          >
+            {t.ctaButton[lang]}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

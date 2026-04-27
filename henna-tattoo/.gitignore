@@ -14,3 +14,12 @@ dist/
 # Env
 .env
 .env.local
+
+# Netlify
+.netlify/
+
+# Image pipeline
+# _originals/ IS committed (source-of-truth photos) so Netlify can re-optimize.
+# public/images/ IS committed (served directly by the CDN, no build cost).
+# Only ignore the local scratch outputs:
+scripts/.image-manifest.tmp

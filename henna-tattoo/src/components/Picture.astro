@@ -1,0 +1,75 @@
+---
+/**
+ * <Picture> — responsive, modern-format image for /public/images assets.
+ *
+ * Pairs with scripts/optimize-images.mjs which generates, for every source
+ * photo, sibling files at widths 640/1024/1600 in AVIF + WebP + JPG/PNG.
+ *
+ * Usage:
+ *   <Picture src="/images/jagua/IMG_0010.jpg" alt="Jagua" sizes="(min-width: 768px) 33vw, 50vw" />
+ *
+ *   - `src`     : path to the master fallback file (the original-named .jpg/.png).
+ *   - `alt`     : required for a11y.
+ *   - `sizes`   : CSS-style hint to the browser. Defaults to "100vw".
+ *   - `widths`  : override the responsive width set if needed.
+ *   - `loading` : "lazy" (default) or "eager" for above-the-fold images.
+ *   - `class`   : forwarded to <img>.
+ *
+ * Output: a <picture> with <source> entries for AVIF then WebP, and a
+ * raster <img> as the universal fallback. Browsers pick the best one.
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  src,
+  alt,
+  sizes = '100vw',
+  widths = [640, 1024, 1600],
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority,
+  class: className,
+  width,
+  height,
+} = Astro.props as Props;
+
+// src looks like "/images/jagua/IMG_0010.jpg". Split into dir + stem + ext.
+const dot   = src.lastIndexOf('.');
+const slash = src.lastIndexOf('/');
+const ext   = dot > slash ? src.slice(dot) : '';
+const stem  = dot > slash ? src.slice(slash + 1, dot) : src.slice(slash + 1);
+const dir   = src.slice(0, slash);
+
+const variant = (w: number, e: string) => `${dir}/${stem}-${w}${e}`;
+const srcset  = (e: string) =>
+  widths.map((w) => `${variant(w, e)} ${w}w`).join(', ');
+---
+
+<picture style="display:contents">
+  <source type="image/avif" srcset={srcset('.avif')} sizes={sizes} />
+  <source type="image/webp" srcset={srcset('.webp')} sizes={sizes} />
+  <img
+    src={src}
+    srcset={srcset(ext)}
+    sizes={sizes}
+    alt={alt}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    width={width}
+    height={height}
+    class={className}
+  />
+</picture>

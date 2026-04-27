@@ -1,3 +1,29 @@
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/inter/wght-italic.css';
+@import '@fontsource-variable/playfair-display/wght.css';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
+
+/* Fallback fonts with size-adjusted metrics to match the loaded
+   variable fonts. Eliminates layout shift when web fonts swap in.
+   Numbers from web.dev's fallback-font calculator (Inter / Playfair
+   vs. system default sans-serif / serif). */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.40%;
+  ascent-override: 90%;
+  descent-override: 22.43%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Playfair Fallback';
+  src: local('Georgia');
+  size-adjust: 110.00%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +39,10 @@
 
   h1, h2, h3, h4 {
     @apply font-display tracking-tight;
+    text-wrap: balance;
   }
+
+  p { text-wrap: pretty; }
 }
 
 @layer components {

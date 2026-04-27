@@ -1,0 +1,50 @@
+---
+import type { Faq as FaqEntry } from '../lib/categories';
+import { getLang, dict } from '../lib/i18n';
+
+interface Props {
+  items: FaqEntry[];
+  heading?: string;
+  eyebrow?: string;
+  className?: string;
+}
+
+const lang = getLang(Astro);
+const {
+  items,
+  heading = dict.category.faqHeading[lang],
+  eyebrow = 'FAQ',
+  className = '',
+} = Astro.props;
+---
+
+<section class={`py-12 ${className}`} aria-labelledby="faq-heading">
+  <div class="container-prose max-w-3xl">
+    <span class="eyebrow">{eyebrow}</span>
+    <h2 id="faq-heading" class="section-title mt-3">{heading}</h2>
+
+    <div class="mt-8 divide-y divide-henna-100 rounded-2xl border border-henna-100 bg-white shadow-sm">
+      {
+        items.map((item, i) => (
+          <details class="group p-5 sm:p-6" open={i === 0}>
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-left list-none [&::-webkit-details-marker]:hidden">
+              <h3 class="font-display text-lg text-henna-700 sm:text-xl">{item.q}</h3>
+              <span
+                class="ml-3 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-henna-50 text-henna-600 transition group-open:rotate-45"
+                aria-hidden="true"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </span>
+            </summary>
+            <div class="mt-3 text-ink/75">
+              <p>{item.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

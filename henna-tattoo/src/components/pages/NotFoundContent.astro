@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getSite } from '../../lib/site';
+import { getLang, dict, localizePath } from '../../lib/i18n';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const t = dict.notFound;
+---
+
+<Layout
+  title={`${t.metaTitle[lang]} — ${site.name}`}
+  description={t.metaDescription[lang]}
+>
+  <section class="py-24 sm:py-32">
+    <div class="container-prose text-center">
+      <span class="eyebrow">404</span>
+      <h1 class="mt-4 text-5xl font-display text-henna-700 sm:text-6xl">
+        {t.title[lang]}
+      </h1>
+      <p class="mx-auto mt-4 max-w-md text-ink/70">{t.intro[lang]}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={localizePath('/', lang)} class="btn-primary">{t.home[lang]}</a>
+        <a href={localizePath('/#categories', lang)} class="btn-secondary">{t.browse[lang]}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

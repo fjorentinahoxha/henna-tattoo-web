@@ -3,101 +3,306 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import CustomCursor from '../components/CustomCursor.astro';
-import { site } from '../lib/site';
+import { getSite } from '../lib/site';
+import { getLang, altLangPath, type Lang } from '../lib/i18n';
+
+import interLatinExt from '@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2?url';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import playfairLatinExt from '@fontsource-variable/playfair-display/files/playfair-display-latin-ext-wght-normal.woff2?url';
+import playfairLatin from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url';
 
 export interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   canonical?: string;
+  jsonLd?: object | object[];
+  keywords?: string[];
+  preloadImage?: string;
+  preloadImageType?: string;
 }
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+
+const KEYWORDS_BY_LANG: Record<Lang, string[]> = {
+  en: [
+    'henna tattoo Tirana',
+    'henna tattoo Albania',
+    'mehndi Tirana',
+    'bridal henna Tirana',
+    'jagua tattoo Tirana',
+    'temporary tattoo Tirana',
+    'henna artist Albania',
+    'wedding mehndi Albania',
+    'glitter henna Tirana',
+    'white henna bridal',
+    'colourful henna Tirana',
+    'henna prices Tirana',
+  ],
+  sq: [
+    'kana Tiranë',
+    'kana në Tiranë',
+    'tatuazh me kana Tiranë',
+    'kana për nuse',
+    'kana për dasmë',
+    'mehndi Tiranë',
+    'kana shqipëri',
+    'henna Tiranë',
+    'kana jagua Tiranë',
+    'kana e bardhë për nuse',
+    'kana me xixëllima',
+    'kana me ngjyra',
+    'kana neon',
+    'çmime kanaje Tiranë',
+    'artistë kanaje në Tiranë',
+    'tatuazh i përkohshëm Tiranë',
+    'natë e kanasë',
+  ],
+};
 
 const {
   title = `${site.name} — ${site.tagline}`,
   description = site.description,
-  image = '/images/logo.svg',
+  image = '/og-cover.jpg',
+  imageAlt = `${site.name} — ${site.tagline}`,
+  imageWidth = 1200,
+  imageHeight = 630,
   canonical,
+  jsonLd: extraJsonLd,
+  keywords = KEYWORDS_BY_LANG[lang],
+  preloadImage,
+  preloadImageType,
 } = Astro.props;
 
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(image, Astro.site).toString();
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': Astro.site?.toString(),
+const otherLangURL = new URL(altLangPath(Astro.url.pathname), Astro.site).toString();
+const enHref = lang === 'en' ? canonicalURL : otherLangURL;
+const sqHref = lang === 'sq' ? canonicalURL : otherLangURL;
+const xDefaultHref = sqHref;
+
+const ogLocale = lang === 'sq' ? 'sq_AL' : 'en_US';
+const altLocale = lang === 'sq' ? 'en_US' : 'sq_AL';
+const localeISO = lang === 'sq' ? 'sq-AL' : 'en-US';
+
+const businessId = `${Astro.site}#business`;
+const personId = `${Astro.site}#artist`;
+const websiteId = `${Astro.site}#website`;
+const orgId = `${Astro.site}#organization`;
+
+const businessLd = {
+  '@type': ['LocalBusiness', 'BeautyShop', 'HealthAndBeautyBusiness'],
+  '@id': businessId,
   name: site.name,
+  alternateName: ['Henna Tattoo Tirana', 'Kana Tatuazh Tiranë', 'Mehndi Tirana'],
   description: site.description,
-  image: new URL('/images/logo.svg', Astro.site).toString(),
+  image: { '@type': 'ImageObject', url: new URL('/og-cover.jpg', Astro.site).toString(), width: 1200, height: 630 },
+  logo: new URL('/images/logo.svg', Astro.site).toString(),
   url: Astro.site?.toString(),
   email: site.contact.email,
   telephone: site.contact.phoneIntl,
+  inLanguage: ['en', 'sq'],
+  knowsLanguage: ['English', 'Albanian'],
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Cash, Bank transfer',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Rruga Kastriotet, Kompleksi "Garden City"',
-    addressLocality: 'Tirana',
-    postalCode: '1007',
-    addressCountry: 'AL',
+    streetAddress: site.location.streetAddress,
+    addressLocality: site.location.city,
+    addressRegion: 'Tirana',
+    postalCode: site.location.postalCode,
+    addressCountry: site.location.countryCode,
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 41.3438275,
-    longitude: 19.7783933,
+    latitude: site.location.latitude,
+    longitude: site.location.longitude,
   },
+  hasMap: site.location.mapsUrl,
   priceRange: '10€ – 45€',
-  sameAs: [site.social.instagramUrl],
-  founder: { '@type': 'Person', name: site.artist },
+  sameAs: [site.social.instagramUrl, site.social.tiktokUrl],
+  founder: { '@id': personId },
+  employee: { '@id': personId },
+  areaServed: site.serviceAreas.map((a) => ({ '@type': 'City', name: `${a.name}, Albania`, alternateName: a.nameSq })),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '18:00',
+      closes: '22:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
+  contactPoint: [{
+    '@type': 'ContactPoint',
+    contactType: 'Booking',
+    telephone: site.contact.phoneIntl,
+    email: site.contact.email,
+    availableLanguage: ['English', 'Albanian', 'sq', 'en'],
+    areaServed: site.location.countryCode,
+  }],
+};
+
+const personLd = {
+  '@type': 'Person',
+  '@id': personId,
+  name: site.artist,
+  jobTitle: lang === 'sq' ? 'Mjeshtre e certifikuar e kanasë' : 'Certified Henna Master',
+  description: site.credentials,
+  worksFor: { '@id': businessId },
+  url: Astro.site?.toString(),
+  image: new URL('/images/certeficate.png', Astro.site).toString(),
+  knowsLanguage: ['English', 'Albanian'],
+  sameAs: [site.social.instagramUrl, site.social.tiktokUrl],
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'certification',
+    name: 'Dubai Henna Master Course (2025)',
+  },
+};
+
+const orgLd = {
+  '@type': 'Organization',
+  '@id': orgId,
+  name: site.name,
+  url: Astro.site?.toString(),
+  logo: new URL('/images/logo.svg', Astro.site).toString(),
+  sameAs: [site.social.instagramUrl, site.social.tiktokUrl],
+  founder: { '@id': personId },
+};
+
+const websiteLd = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  url: Astro.site?.toString(),
+  name: site.name,
+  description: site.description,
+  publisher: { '@id': orgId },
+  inLanguage: ['en', 'sq'],
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${Astro.site}#search?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const webPageLd = {
+  '@type': 'WebPage',
+  '@id': `${canonicalURL}#webpage`,
+  url: canonicalURL,
+  name: title,
+  description,
+  inLanguage: localeISO,
+  isPartOf: { '@id': websiteId },
+  about: { '@id': businessId },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: ogImageURL,
+    width: imageWidth,
+    height: imageHeight,
+  },
+};
+
+const baseGraph = [businessLd, personLd, orgLd, websiteLd, webPageLd];
+const extraGraph = extraJsonLd ? (Array.isArray(extraJsonLd) ? extraJsonLd : [extraJsonLd]) : [];
+const fullGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [...baseGraph, ...extraGraph],
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#8b4513" />
+    <meta name="color-scheme" content="light" />
+
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" sizes="any" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />
+
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="sq" href={sqHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    <link rel="preload" as="font" type="font/woff2" href={interLatin}        crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={interLatinExt}     crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={playfairLatin}     crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={playfairLatinExt}  crossorigin="anonymous" />
+
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage}
+        type={preloadImageType}
+        fetchpriority="high"
+      />
+    )}
 
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={site.artist} />
-    <meta
-      name="keywords"
-      content="henna tattoo albania, henna tirana, jagua henna, brown henna, white henna, glitter henna, neon henna, mehndi tirana, bridal henna albania, temporary tattoo tirana"
-    />
+    <meta name="keywords" content={keywords.join(', ')} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+    <meta name="geo.region" content="AL-11" />
+    <meta name="geo.placename" content="Tirana" />
+    <meta name="geo.position" content={`${site.location.latitude};${site.location.longitude}`} />
+    <meta name="ICBM" content={`${site.location.latitude}, ${site.location.longitude}`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:secure_url" content={ogImageURL} />
+    <meta property="og:image:type" content={image.endsWith('.png') ? 'image/png' : (image.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg')} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={altLocale} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site).toString()} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    />
-
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(fullGraph)} is:inline />
   </head>
   <body class="min-h-screen bg-cream font-sans text-ink">
     <CustomCursor />
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-henna-700 focus:px-4 focus:py-2 focus:text-cream">
+      {lang === 'sq' ? 'Kalo te përmbajtja' : 'Skip to content'}
+    </a>
     <Navbar />
-    <main class="min-h-[60vh]">
+    <main id="main" class="min-h-[60vh]">
       <slot />
     </main>
     <Footer />
