@@ -6,12 +6,16 @@ export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: false })],
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto',
+    // Inline every stylesheet — eliminates the render-blocking <link rel="stylesheet">
+    // that PageSpeed flagged (~510ms savings on mobile, ~680ms on desktop).
+    // Total CSS payload is small (~25KB raw, ~7.6KB transferred); inlining is a net
+    // win because it lets the browser paint as soon as the HTML arrives.
+    inlineStylesheets: 'always',
     assets: '_astro',
   },
   vite: {
     build: {
-      cssCodeSplit: true,
+      cssCodeSplit: false,
     },
   },
 });

@@ -63,7 +63,10 @@ const OUT_DIR = path.join(ROOT, 'public', 'images');
 const MANIFEST_PATH = path.join(__dirname, '.image-manifest.json');
 
 // ---- Tunables ---------------------------------------------------------------
-const RESPONSIVE_WIDTHS = [640, 1024, 1600];
+// 320 / 480 widths matter for the small hero/category/gallery tiles where
+// devices at DPR 1–2 only need ~200–400 CSS pixels. PageSpeed flags larger
+// variants as "image too big" when delivered to those slots.
+const RESPONSIVE_WIDTHS = [320, 480, 640, 1024, 1600];
 const MAX_WIDTH = 1600;             // long-edge cap for the "fallback" file
 const AVIF_QUALITY = 55;            // 50–60 is the sweet spot for photos
 const WEBP_QUALITY = 80;

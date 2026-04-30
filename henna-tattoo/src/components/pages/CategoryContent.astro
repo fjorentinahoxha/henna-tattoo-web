@@ -160,7 +160,7 @@ const allLd = faqLd ? [serviceLd, breadcrumbLd, faqLd] : [serviceLd, breadcrumbL
         <h3 class="mt-2 text-2xl font-display text-henna-700">
           {t.pricingFromPrefix[lang]} {category.startingAt}
         </h3>
-        <p class="mt-2 text-sm text-ink/60">{t.pricingNote[lang]}</p>
+        <p class="mt-2 text-sm text-ink/70">{t.pricingNote[lang]}</p>
 
         {
           category.priceChart && (
@@ -212,8 +212,8 @@ const allLd = faqLd ? [serviceLd, breadcrumbLd, faqLd] : [serviceLd, breadcrumbL
                 <>
                   <Picture
                     src={c.image}
-                    alt={c.title}
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    alt=""
+                    sizes="(min-width: 1024px) 17rem, (min-width: 640px) 45vw, 100vw"
                     loading="lazy"
                     class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
                   />

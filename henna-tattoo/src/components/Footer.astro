@@ -26,7 +26,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.explore[lang]}</h4>
+      <h2 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.explore[lang]}</h2>
       <ul class="mt-4 space-y-2 text-sm text-ink/70">
         <li><a href={localizePath('/#categories', lang)} class="hover:text-henna-700">{t.categories[lang]}</a></li>
         <li><a href={localizePath('/#about',      lang)} class="hover:text-henna-700">{t.about[lang]}</a></li>
@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <h4 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.getInTouch[lang]}</h4>
+      <h2 class="text-sm font-semibold uppercase tracking-widest text-henna-600">{t.getInTouch[lang]}</h2>
       <ul class="mt-4 space-y-2 text-sm text-ink/70">
         <li>
           <a href={`mailto:${site.contact.email}`} class="hover:text-henna-700">
@@ -83,7 +83,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="border-t border-henna-100">
-    <div class="container-prose flex flex-col items-center justify-between gap-2 py-4 text-xs text-ink/50 sm:flex-row">
+    <div class="container-prose flex flex-col items-center justify-between gap-2 py-4 text-xs text-ink/70 sm:flex-row">
       <span>© {year} {site.name}. {t.rights[lang]}</span>
       <span>{t.artist[lang]} {site.artist}</span>
     </div>

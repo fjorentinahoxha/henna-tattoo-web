@@ -89,6 +89,7 @@ const dict = {
       en: 'Book a henna station for your next fair or party →',
       sq: 'Rezervo një stacion kanaje për panairin ose festën tënde të radhës →',
     },
+    eventsWatch: { en: 'Watch on Instagram', sq: 'Shiko në Instagram' },
     aboutEyebrow: { en: 'About the studio', sq: 'Rreth studios' },
     aboutTitle:   { en: 'A modern take on an ancient art', sq: 'Një qasje moderne ndaj një arti të lashtë' },
     aboutP1: {
