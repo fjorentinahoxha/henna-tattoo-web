@@ -53,6 +53,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
+import { createHash } from 'node:crypto';
 import sharp from 'sharp';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
@@ -117,9 +118,14 @@ async function saveManifest(m) {
 }
 
 async function hashKey(filePath) {
-  // Cheap signature: mtime + size. Avoids hashing every file every run.
+  // Content hash so the manifest survives across machines. mtime would
+  // reset on every fresh `git clone` (e.g. on Netlify's build VM) and
+  // force re-encoding all 128 photos every deploy (~7 min). With sha1
+  // of file bytes the optimizer skips unchanged sources in <1s total.
+  const buf = await fs.readFile(filePath);
   const s = await fs.stat(filePath);
-  return `${s.size}:${Math.floor(s.mtimeMs)}`;
+  const h = createHash('sha1').update(buf).digest('hex').slice(0, 16);
+  return `${s.size}:${h}`;
 }
 
 function variantPaths(rel) {
