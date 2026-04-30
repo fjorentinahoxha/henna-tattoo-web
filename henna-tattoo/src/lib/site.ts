@@ -83,10 +83,10 @@ const i18n: Record<Lang, { tagline: string; description: string; credentials: st
       'Professional henna tattoo artist in Tirana, Albania. Bridal mehndi, jagua, white, glitter and colourful henna for weddings, festivals, parties and events. Booking nationwide.',
   },
   sq: {
-    tagline: 'Art tradicional & modern me kana',
-    credentials: 'Mjeshtre e certifikuar e kanasë — Dubai Henna Master Course (2025)',
+    tagline: 'Art tradicional & modern me këna',
+    credentials: 'Artiste e certifikuar e kënasë — Dubai Henna Master Course (2025)',
     description:
-      'Artiste profesionale e tatuazheve me kana në Tiranë, Shqipëri. Kana për nuse (mehndi), jagua, e bardhë, me xixëllima dhe me ngjyra për dasma, festivale, festa dhe evente. Rezervime në të gjithë vendin.',
+      'Artiste profesionale e tatuazheve me këna në Tiranë, Shqipëri. Këna për nuse (mehndi), jagua, e bardhë, me xixa dhe me ngjyra për dasma, festivale, festa dhe evente. Rezervime në të gjithë vendin.',
   },
 };
 

@@ -29,6 +29,22 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Explicit MIME types — Netlify usually auto-detects but a missing
+# variant returns the 404 HTML page, which network-tab tools then
+# label as text/html. These headers make sure existing files always
+# advertise the correct image type.
+[[headers]]
+  for = "/images/*.avif"
+  [headers.values]
+    Content-Type  = "image/avif"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*.webp"
+  [headers.values]
+    Content-Type  = "image/webp"
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/_astro/*"
   [headers.values]
