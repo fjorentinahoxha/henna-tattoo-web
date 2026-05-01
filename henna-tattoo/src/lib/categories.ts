@@ -341,27 +341,27 @@ export const localizedCategories: LocalizedCategory[] = [
     },
     description: {
       en: 'A body-safe white adhesive paste that sits on the skin like lace. Stunning against bronzed skin and beloved for weddings.',
-      sq: 'Pastë e bardhë ngjitëse, e sigurt për trupin, që rri mbi lëkurë si dantellë. Mahnitëse mbi lëkurën e bronxhuar dhe e adhuruar për dasma.',
+      sq: 'Pastë e bardhë ngjitëse, e sigurt për trupin, që rri mbi lëkurë si dantellë. Mahnitëse për dasma.',
     },
     longDescription: {
       en: 'White henna is not a stain — it is a raised, pearly design that lasts 1 to 3 days, making it ideal for weddings, photoshoots and events. Pairs beautifully with gemstones and glitter accents.',
-      sq: 'këna e bardhë nuk është ngjyrë që depërton — është një dizajn i ngritur, perlëzar, që zgjat 1 deri në 3 ditë, ideal për dasma, fotosesione dhe evente. Shoqërohet bukur me gurë dhe theksa me xixa.',
+      sq: 'Kënaja e bardhë nuk është ngjyrë që depërton — është një dizajn i ngritur, që zgjat 1 deri në 3 ditë, ideal për dasma, fotosesione dhe evente. Shoqërohet bukur me gurë dhe me xixa.',
     },
     metaTitle: {
       en: 'White Henna Tattoos in Tirana | Bridal & Event Designs',
-      sq: 'Tatuazhe me këna të Bardhë në Tiranë | Dizajne për Nuse & Evente',
+      sq: 'Tatuazhe me këna të bardhë në Tiranë | Dizajne për Nuse & Evente',
     },
     metaDescription: {
-      en: 'White henna in Tirana — pearly lace-like body art for brides, photoshoots and events. Hand-drawn freehand by certified artist Fjorentina Hoxha. From 10€.',
-      sq: 'këna e bardhë në Tiranë — art trupor perlëzar, si dantellë, për nuse, fotosesione dhe evente. Vizatuar me dorë të lirë nga artistja e certifikuar Fjorentina Hoxha. Nga 10€.',
+      en: 'White henna in Tirana — pearly lace-like body art for brides, photoshoots and events. Hand-drawn freehand. From 10€.',
+      sq: 'Këna e bardhë në Tiranë — art trupor, si dantellë, për nuse, fotosesione dhe evente. Vizatuar me dorë të lirë. Nga 10€.',
     },
     h1: {
       en: 'White Henna in Tirana — Lace-Like Bridal Body Art',
-      sq: 'këna e Bardhë në Tiranë — Art Trupor për Nuse, si Dantellë',
+      sq: 'Këna e Bardhë në Tiranë — Art Trupor për Nuse, si Dantellë',
     },
     intro: {
       en: 'White henna — "këna e bardhë" — is not a dye but a body-safe adhesive paste tinted with cosmetic-grade pigments. It sits raised on the skin like delicate lace, photographs beautifully against tanned or bronzed skin, and pairs effortlessly with crystal accents and pearl details. While it lasts only 1–3 days, it is unbeatable for the wedding day, the engagement shoot, the post-ceremony party — anywhere photographs are the point. Ideal for brides who want something striking the camera will love, but that washes off before the honeymoon.',
-      sq: 'këna e bardhë nuk është ngjyrë gjurmëlënëse, por një pastë ngjitëse e sigurt për trupin, e ngjyrosur me pigmente kozmetike. Rri e ngritur mbi lëkurë si dantellë e hollë, del bukur në fotografi mbi lëkurën e bronxhuar ose më të errët dhe shoqërohet me lehtësi me kristale dhe detaje me perla. Edhe pse zgjat vetëm 1–3 ditë, është e pakrahasueshme për ditën e dasmës, sesionin e fotove të fejesës apo festën pas ceremonisë — kudo ku fotografitë janë në qendër. Ideale për nuset që duan diçka mbresëlënëse që kamera ta dojë, por që lahet para muajit të mjaltit.',
+      sq: 'Kënaja e bardhë nuk është ngjyrë gjurmëlënëse, por një pastë ngjitëse e sigurt për trupin, e ngjyrosur me pigmente kozmetike. Rri e ngritur mbi lëkurë si dantellë e hollë, del bukur në fotografi dhe shoqërohet me lehtësi me kristale dhe detaje me perla. Edhe pse zgjat vetëm 1–3 ditë, është e pakrahasueshme për ditën e dasmës, sesionin e fotove të fejesës apo festën pas ceremonisë — kudo ku fotografitë janë në qendër. Ideale për nuset që duan diçka mbresëlënëse që kamera ta dojë, por që lahet para muajit të mjaltit.',
     },
     occasions: {
       en: ['Wedding day', 'Engagement shoots', 'Bridal showers', 'Photoshoots', 'Henna nights'],
@@ -369,17 +369,17 @@ export const localizedCategories: LocalizedCategory[] = [
     },
     faqs: [
       {
-        q: { en: 'How long does white henna last?', sq: 'Sa zgjat këna e bardhë?' },
+        q: { en: 'How long does white henna last?', sq: 'Sa zgjat kënaja e bardhë?' },
         a: {
           en: 'White henna lasts 1 to 3 days. It is a temporary adhesive design rather than a stain — perfect when you want a stunning look for a specific event without long-term commitment.',
-          sq: 'këna e bardhë zgjat 1 deri në 3 ditë. Është një dizajn ngjitës i përkohshëm, jo ngjyrë gjurmëlënëse — e përsosur kur dëshironi një pamje mahnitëse për një event të caktuar pa angazhim afatgjatë.',
+          sq: 'kënaja e bardhë zgjat 1 deri në 3 ditë. Është një dizajn ngjitës i përkohshëm, jo ngjyrë gjurmëlënëse — e përsosur kur dëshironi një pamje mahnitëse për një event të caktuar pa angazhim afatgjatë.',
         },
       },
       {
         q: { en: 'Does it really photograph well?', sq: 'A del vërtet bukur në fotografi?' },
         a: {
           en: 'Yes — white henna is loved by wedding photographers because the raised, pearly texture catches light and pops in close-ups. It looks especially striking on darker or bronzed skin tones.',
-          sq: 'Po — këna e bardhë adhurohet nga fotografët e dasmave, sepse tekstura e ngritur dhe perlëzar kap dritën dhe del shumë bukur në plane të afërta. Duket veçanërisht mbresëlënëse mbi lëkurë më të errët apo të bronxhuar.',
+          sq: 'Po — këna e bardhë adhurohet nga fotografët e dasmave, sepse tekstura e ngritur dhe perlëzar kap dritën dhe del shumë bukur në plane të afërta. Duket veçanërisht mbresëlënëse mbi lëkurë më të errët.',
         },
       },
       {

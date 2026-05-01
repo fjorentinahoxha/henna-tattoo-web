@@ -28,7 +28,7 @@ export const localizedEvents: LocalizedEventReel[] = [
     },
     description: {
       en: 'Live henna at the charity fair supporting cancer patients.',
-      sq: 'Këna drejtpërdrejt në panairin bamirës në mbështetje të pacientëve me kancer.',
+      sq: 'Këna drejtpërdrejt në panairin bamirës në mbështetje të fëmijeve me autizëm.',
     },
     url: 'https://www.instagram.com/reel/DGC_rrMNWKV/',
   },
@@ -36,7 +36,7 @@ export const localizedEvents: LocalizedEventReel[] = [
     title: { en: 'Bridal Henna Events', sq: 'Evente kënaje për nuse' },
     description: {
       en: 'Celebrating important days with henna love.',
-      sq: 'Festojmë ditë të rëndësishme me dashurinë e kënasë.',
+      sq: 'Festojmë ditë të rëndësishme me magjinë e kënasë.',
     },
     url: 'https://www.instagram.com/reel/DNonvG2M7RE/',
   },
@@ -44,7 +44,7 @@ export const localizedEvents: LocalizedEventReel[] = [
     title: { en: 'Namazgah Mosque Fair', sq: 'Panairi i Xhamisë Namazgah' },
     description: {
       en: 'Traditional henna at the Namazgah community fair.',
-      sq: 'Këna tradicionale në panairin e komunitetit të Namazgahut.',
+      sq: 'Këna tradicionale në panairin e xhamisë të Namazgjas.',
     },
     url: 'https://www.instagram.com/reel/DPKQWiBDD6O/',
   },
@@ -60,10 +60,10 @@ export const localizedEvents: LocalizedEventReel[] = [
     url: 'https://www.instagram.com/reel/CxoUNjlNNY_/',
   },
   {
-    title: { en: 'Behind the scenes', sq: 'Pas perdes' },
+    title: { en: 'Enjoy', sq: 'Enjoy' },
     description: {
-      en: 'A beautiful moment from the studio.',
-      sq: 'Një moment i bukur nga studio.',
+      en: 'A beautiful moment.',
+      sq: 'Një moment i bukur.',
     },
     url: 'https://www.instagram.com/reel/DJnRATcINMz/',
   },

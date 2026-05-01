@@ -98,35 +98,36 @@ const galleryImages = [
 
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
-          events.map(({ title, description, url }, i) => {
+          events.map(({ title, description, url }) => {
             const embedSrc = `${url.replace(/\/$/, '')}/embed`;
-            const accents = [
-              'from-henna-200 via-henna-300 to-henna-500',
-              'from-rose-200 via-fuchsia-300 to-henna-500',
-              'from-amber-200 via-amber-300 to-henna-500',
-              'from-emerald-200 via-teal-300 to-henna-500',
-              'from-sky-200 via-violet-300 to-henna-500',
-              'from-stone-200 via-stone-300 to-henna-500',
-            ];
-            const accent = accents[i % accents.length];
+            const reelId = url.match(/\/reel\/([A-Za-z0-9_-]+)/)?.[1];
+            const posterPath = reelId ? `/images/events/${reelId}.jpg` : null;
             return (
               <figure class="flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-henna-100 transition hover:-translate-y-0.5 hover:shadow-md">
                 <button
                   type="button"
-                  class={`ig-facade group relative block h-[390px] w-full overflow-hidden rounded-t-3xl bg-gradient-to-br ${accent} text-left`}
+                  class="ig-facade group relative block h-[390px] w-full overflow-hidden rounded-t-3xl bg-henna-100 text-left"
                   data-embed={embedSrc}
                   data-title={title}
                   aria-label={`${dict.home.eventsWatch[lang]}: ${title}`}
                 >
-                  <span class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.3),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(0,0,0,0.25),transparent_60%)]" aria-hidden="true"></span>
+                  {posterPath && (
+                    <Picture
+                      src={posterPath}
+                      alt=""
+                      sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
+                      loading="lazy"
+                      class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
+                  )}
+                  <span class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/40" aria-hidden="true"></span>
                   <span class="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
                     <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-2xl text-henna-700 shadow-lg transition group-hover:scale-110">
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M8 5v14l11-7z"></path>
                       </svg>
                     </span>
-                    <span class="font-display text-xl text-cream drop-shadow-md">{title}</span>
-                    <span class="text-[11px] font-semibold uppercase tracking-widest text-cream/90 drop-shadow">{dict.home.eventsWatch[lang]}</span>
+                    <span class="text-[11px] font-semibold uppercase tracking-widest text-cream drop-shadow">{dict.home.eventsWatch[lang]}</span>
                   </span>
                 </button>
                 <figcaption class="px-5 py-4">
