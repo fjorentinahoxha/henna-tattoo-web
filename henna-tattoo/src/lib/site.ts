@@ -46,7 +46,7 @@ const shared = {
 
   terms: {
     en: { henna: 'henna', tattoo: 'tattoo', bridal: 'bridal',  wedding: 'wedding'  },
-    sq: { henna: 'kana',  tattoo: 'tatuazh', bridal: 'nuse',   wedding: 'dasmë'    },
+    sq: { henna: 'këna',  tattoo: 'tatuazh', bridal: 'nuse',   wedding: 'dasmë'    },
   },
 
   keywords: {
