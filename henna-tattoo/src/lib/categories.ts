@@ -92,12 +92,12 @@ export const localizedCategories: LocalizedCategory[] = [
       sq: 'Tatuazhe me këna jagua në Tiranë — të zeza në blu, të përkohshme, që zgjasin 7–21 ditë. Dizajne me porosi nga artistja e certifikuar Fjorentina Hoxha. Nga 15€.',
     },
     h1: {
-      en: 'Jagua Henna Tattoos in Tirana — Black-Blue Designs That Look Real',
-      sq: 'Tatuazhe me këna Jagua në Tiranë — Dizajne Blu-Zi Që Duken të Vërteta',
+      en: 'Jagua Henna Tattoos — Black-Blue Designs That Look Real',
+      sq: 'Tatuazhe me këna Jagua — Dizajne Blu-Zi Që Duken të Vërteta',
     },
     intro: {
       en: 'Jagua henna is the closest thing to a real black-ink tattoo without the needle, the pain, or the permanence. Pressed from the green Genipa americana fruit and turned into a smooth gel, jagua stains the skin a deep black-blue that develops over 48 hours and lasts 1–3 weeks. It is loved in Tirana for engagement parties, hen-dos, festivals and beach holidays — anywhere a real tattoo would feel like too much commitment. Every piece is hand-drawn freehand by Fjorentina Hoxha, certified Henna Master, in the Garden City studio.',
-      sq: 'këna jagua është gjëja më e afërt me një tatuazh të vërtetë me bojë të zezë — pa gjilpërë, pa dhimbje, pa qenë i përhershëm. E nxjerrë nga fruti i gjelbër Genipa americana dhe e kthyer në një xhel të butë, jagua e ngjyros lëkurën në një blu-zi të thellë që zhvillohet brenda 48 orëve dhe zgjat 1–3 javë. Në Tiranë ajo pëlqehet për festat e fejesës, mbrëmjet e beqarisë, festivalet dhe pushimet në plazh — kudo ku një tatuazh i vërtetë do ishte angazhim shumë i madh. Çdo dizajn vizatohet me dorë të lirë nga Fjorentina Hoxha, mjeshtre e certifikuar e kënasë, në studion e Garden City.',
+      sq: 'Kënaja jagua është gjëja më e afërt me një tatuazh të vërtetë me bojë të zezë — pa gjilpërë, pa dhimbje, pa qenë i përhershëm. E nxjerrë nga fruti i gjelbër Genipa americana dhe e kthyer në një xhel të butë, jagua e ngjyros lëkurën në një blu-zi të thellë që zhvillohet brenda 48 orëve dhe zgjat 1–3 javë. Çdo dizajn vizatohet me dorë të lirë.',
     },
     occasions: {
       en: ['Engagement parties', 'Festivals', 'Beach holidays', 'Photoshoots', 'Birthdays'],
