@@ -5,7 +5,7 @@
 ---
 
 <div id="custom-cursor" class="cursor" aria-hidden="true">
-  <svg viewBox="-14 -32 28 42" width="28" height="42">
+  <svg viewBox="-14 -32 28 42" width="20" height="30">
     <defs>
       <!-- Purple glittery cellophane body -->
       <linearGradient id="cone-body-grad" x1="0" y1="0" x2="0.2" y2="1">
@@ -179,8 +179,8 @@
       drop-shadow(0 8px 18px rgba(60, 20, 80, 0.25));
   }
   .cursor-trail {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 999px;
     background: radial-gradient(circle, rgba(255, 210, 150, 0.85), rgba(139, 69, 19, 0) 70%);
     filter: blur(2px);
@@ -257,8 +257,8 @@
       }
     });
 
-    // SVG width is 28px; horizontal center is 14px
-    const halfW = 14;
+    // SVG width is 20px; horizontal center is 10px
+    const halfW = 10;
 
     const render = () => {
       coneX += (mouseX - coneX) * 0.22;
@@ -270,7 +270,7 @@
       cursor.style.transform =
         `translate3d(${coneX - halfW}px, ${coneY}px, 0) scale(${scale})`;
       trail.style.transform =
-        `translate3d(${trailX - 6}px, ${trailY - 6}px, 0)`;
+        `translate3d(${trailX - 4}px, ${trailY - 4}px, 0)`;
 
       requestAnimationFrame(render);
     };
