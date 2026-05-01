@@ -70,7 +70,7 @@ export const localizedCategories: LocalizedCategory[] = [
       'jagua tattoo', 'blue henna', 'black henna', 'temporary tattoo Tirana',
       'tatuazh me jagua', 'këna e zezë', 'jagua Tiranë',
     ],
-    title: { en: 'Jagua Henna', sq: 'këna Jagua' },
+    title: { en: 'Jagua Henna', sq: 'Këna Jagua' },
     tagline: {
       en: 'Black to dark blue — lasts 7 to 21 days',
       sq: 'E zezë në blu të errët — zgjat 7 deri në 21 ditë',
@@ -197,7 +197,7 @@ export const localizedCategories: LocalizedCategory[] = [
       'natural henna', 'mehndi', 'bridal henna Tirana', 'wedding henna Albania',
       'këna natyrale', 'këna për nuse', 'këna për dasmë', 'mehndi Tiranë',
     ],
-    title: { en: 'Brown Henna', sq: 'këna Kafe' },
+    title: { en: 'Brown Henna', sq: 'Këna Kafe' },
     tagline: {
       en: 'Organic reddish-brown — lasts 7 to 14 days',
       sq: 'Kuqërremë organike — zgjat 7 deri në 14 ditë',
@@ -334,7 +334,7 @@ export const localizedCategories: LocalizedCategory[] = [
       'white mehndi', 'lace henna', 'bridal white henna', 'event henna Tirana',
       'këna e bardhë', 'këna e bardhë për nuse', 'tatuazh i bardhë',
     ],
-    title: { en: 'White Henna', sq: 'këna e Bardhë' },
+    title: { en: 'White Henna', sq: 'Këna e Bardhë' },
     tagline: {
       en: 'Elegant lace — bridal, photograph-ready',
       sq: 'Dantellë elegante — për nuse, gati për fotografi',
@@ -434,7 +434,7 @@ export const localizedCategories: LocalizedCategory[] = [
       'glitter tattoo', 'sparkle henna', 'party henna Tirana', 'festival henna',
       'këna me xixa', 'këna shkëlqyese', 'tatuazh me xixa',
     ],
-    title: { en: 'Glitter Henna', sq: 'këna me xixa' },
+    title: { en: 'Glitter Henna', sq: 'Këna me Xixa' },
     tagline: {
       en: 'Sparkle that lasts the whole night',
       sq: 'Shkëlqim që zgjat tërë natën',
@@ -532,7 +532,7 @@ export const localizedCategories: LocalizedCategory[] = [
       'neon henna', 'UV henna', 'colourful henna', 'rainbow henna', 'festival henna Tirana',
       'këna me ngjyra', 'këna neon', 'tatuazh me ngjyra',
     ],
-    title: { en: 'Colorful Henna', sq: 'këna me Ngjyra' },
+    title: { en: 'Colorful Henna', sq: 'Këna me Ngjyra' },
     tagline: {
       en: 'Neon & colour — every shade you can imagine',
       sq: 'Neon & ngjyra — çdo nuancë që mund të imagjinosh',
