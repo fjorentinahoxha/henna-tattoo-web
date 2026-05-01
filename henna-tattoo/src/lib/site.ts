@@ -54,15 +54,15 @@ const shared = {
       'henna tattoo Tirana',
       'henna Tirana',
       'mehndi Tirana',
-      'kana Tiranë',
-      'tatuazh me kana Tirana',
+      'këna Tiranë',
+      'tatuazh me këna Tirana',
       'henna artist Tirana',
       'henna Albania',
     ],
     bridal: [
       'bridal henna Tirana',
       'henna për nuse',
-      'kana për dasmë',
+      'këna për dasmë',
       'wedding mehndi Albania',
     ],
     longTail: [

@@ -17,7 +17,7 @@ export const localizedEvents: LocalizedEventReel[] = [
     title: { en: 'Birthday parties', sq: 'Festa ditëlindjesh' },
     description: {
       en: 'Henna tables for kids & adult birthday celebrations.',
-      sq: 'Tavolina me kana për festat e ditëlindjeve të fëmijëve dhe të rriturve.',
+      sq: 'Tavolina me këna për festat e ditëlindjeve të fëmijëve dhe të rriturve.',
     },
     url: 'https://www.instagram.com/reel/Chp6GuGsYfj/',
   },
@@ -28,15 +28,15 @@ export const localizedEvents: LocalizedEventReel[] = [
     },
     description: {
       en: 'Live henna at the charity fair supporting cancer patients.',
-      sq: 'Kana drejtpërdrejt në panairin bamirës në mbështetje të pacientëve me kancer.',
+      sq: 'Këna drejtpërdrejt në panairin bamirës në mbështetje të pacientëve me kancer.',
     },
     url: 'https://www.instagram.com/reel/DGC_rrMNWKV/',
   },
   {
-    title: { en: 'Bridal Henna Events', sq: 'Evente kanaje për nuse' },
+    title: { en: 'Bridal Henna Events', sq: 'Evente kënaje për nuse' },
     description: {
       en: 'Celebrating important days with henna love.',
-      sq: 'Festojmë ditë të rëndësishme me dashurinë e kanasë.',
+      sq: 'Festojmë ditë të rëndësishme me dashurinë e kënasë.',
     },
     url: 'https://www.instagram.com/reel/DNonvG2M7RE/',
   },
@@ -44,7 +44,7 @@ export const localizedEvents: LocalizedEventReel[] = [
     title: { en: 'Namazgah Mosque Fair', sq: 'Panairi i Xhamisë Namazgah' },
     description: {
       en: 'Traditional henna at the Namazgah community fair.',
-      sq: 'Kana tradicionale në panairin e komunitetit të Namazgahut.',
+      sq: 'Këna tradicionale në panairin e komunitetit të Namazgahut.',
     },
     url: 'https://www.instagram.com/reel/DPKQWiBDD6O/',
   },

@@ -345,7 +345,7 @@ export const localizedCategories: LocalizedCategory[] = [
     },
     longDescription: {
       en: 'White henna is not a stain — it is a raised, pearly design that lasts 1 to 3 days, making it ideal for weddings, photoshoots and events. Pairs beautifully with gemstones and glitter accents.',
-      sq: 'këna e bardhë nuk është ngjyrë që depërton — është një dizajn i ngritur, perlëzar, që zgjat 1 deri në 3 ditë, ideal për dasma, fotosesione dhe evente. Shoqërohet bukur me gurë dhe theksa me xixëllima.',
+      sq: 'këna e bardhë nuk është ngjyrë që depërton — është një dizajn i ngritur, perlëzar, që zgjat 1 deri në 3 ditë, ideal për dasma, fotosesione dhe evente. Shoqërohet bukur me gurë dhe theksa me xixa.',
     },
     metaTitle: {
       en: 'White Henna Tattoos in Tirana | Bridal & Event Designs',
@@ -383,10 +383,10 @@ export const localizedCategories: LocalizedCategory[] = [
         },
       },
       {
-        q: { en: 'Can I add gemstones or glitter?', sq: 'A mund të shtoj gurë ose xixëllima?' },
+        q: { en: 'Can I add gemstones or glitter?', sq: 'A mund të shtoj gurë ose xixa?' },
         a: {
           en: 'Absolutely. Crystal accents and cosmetic-grade glitter are part of our bridal white henna package (35€). They are applied while the paste is still tacky and stay on as long as the design.',
-          sq: 'Patjetër. Theksat me kristale dhe xixëllimat kozmetike janë pjesë e paketës sonë të kënasë së bardhë për nuse (35€). Vendosen ndërsa pasta është ende e njomë dhe qëndrojnë sa zgjat vetë dizajni.',
+          sq: 'Patjetër. Theksat me kristale dhe xixa kozmetike janë pjesë e paketës sonë të kënasë së bardhë për nuse (35€). Vendosen ndërsa pasta është ende e njomë dhe qëndrojnë sa zgjat vetë dizajni.',
         },
       },
       {
@@ -421,7 +421,7 @@ export const localizedCategories: LocalizedCategory[] = [
       { name: { en: 'Medium design',        sq: 'Dizajn mesatar' },        description: { en: 'Forearm or shoulder',             sq: 'Parakrah ose sup' },                    price: '15€' },
       { name: { en: 'Large design',         sq: 'Dizajn i madh' },         description: { en: 'Full hand or back',               sq: 'Dora e plotë ose pjesa e shpinës' },    price: '20€' },
       { name: { en: 'Bridal piece',         sq: 'Punim nuseje' },          description: { en: 'Extended bridal design',          sq: 'Dizajn i zgjeruar nuseje' },            price: '30€' },
-      { name: { en: 'With gems & glitter',  sq: 'Me gurë & xixëllima' },   description: { en: 'Full design with gem accents',    sq: 'Dizajn i plotë me theksa gurësh' },     price: '35€' },
+      { name: { en: 'With gems & glitter',  sq: 'Me gurë & xixa' },   description: { en: 'Full design with gem accents',    sq: 'Dizajn i plotë me theksa gurësh' },     price: '35€' },
     ],
   },
   {
@@ -432,36 +432,36 @@ export const localizedCategories: LocalizedCategory[] = [
     startingAt: '10€',
     alternativeNames: [
       'glitter tattoo', 'sparkle henna', 'party henna Tirana', 'festival henna',
-      'këna me xixëllima', 'këna shkëlqyese', 'tatuazh me xixëllima',
+      'këna me xixa', 'këna shkëlqyese', 'tatuazh me xixa',
     ],
-    title: { en: 'Glitter Henna', sq: 'këna me Xixëllima' },
+    title: { en: 'Glitter Henna', sq: 'këna me xixa' },
     tagline: {
       en: 'Sparkle that lasts the whole night',
       sq: 'Shkëlqim që zgjat tërë natën',
     },
     description: {
       en: 'Cosmetic-grade glitter layered over henna or on its own. A crowd favourite at parties, festivals and birthdays.',
-      sq: 'Xixëllima kozmetike të vendosura mbi këna ose në vetvete. Të preferuarat e të gjithëve në festa, festivale dhe ditëlindje.',
+      sq: 'Xixa kozmetike të vendosura mbi këna ose në vetvete. Të preferuarat e të gjithëve në festa, festivale dhe ditëlindje.',
     },
     longDescription: {
       en: 'Glitter henna adds shimmer to classic or white henna designs, or stands alone as a dazzling temporary tattoo. Skin-safe, waterproof on light contact, and photographs beautifully under stage and event lighting.',
-      sq: 'këna me xixëllima i shton shkëlqim dizajneve klasike ose të kënasë së bardhë, ose qëndron e vetme si një tatuazh i përkohshëm verbues. E sigurt për lëkurën, rezistente ndaj kontaktit të lehtë me ujin dhe del shumë bukur në fotografi nën dritat e skenës dhe të eventeve.',
+      sq: 'këna me xixa i shton shkëlqim dizajneve klasike ose të kënasë së bardhë, ose qëndron e vetme si një tatuazh i përkohshëm verbues. E sigurt për lëkurën, rezistente ndaj kontaktit të lehtë me ujin dhe del shumë bukur në fotografi nën dritat e skenës dhe të eventeve.',
     },
     metaTitle: {
       en: 'Glitter Henna in Tirana | Sparkle Tattoos for Parties & Events',
-      sq: 'këna me Xixëllima në Tiranë | Tatuazhe Shkëlqyese për Festa & Evente',
+      sq: 'këna me xixa në Tiranë | Tatuazhe Shkëlqyese për Festa & Evente',
     },
     metaDescription: {
       en: 'Glitter henna tattoos in Tirana — cosmetic-grade sparkle for parties, festivals, birthdays and bridal events. Skin-safe, photo-ready. From 10€.',
-      sq: 'Tatuazhe me këna me xixëllima në Tiranë — shkëlqim kozmetik për festa, festivale, ditëlindje dhe evente nuseje. Të sigurta për lëkurën, gati për foto. Nga 10€.',
+      sq: 'Tatuazhe me këna me xixa në Tiranë — shkëlqim kozmetik për festa, festivale, ditëlindje dhe evente nuseje. Të sigurta për lëkurën, gati për foto. Nga 10€.',
     },
     h1: {
       en: 'Glitter Henna in Tirana — Sparkle Tattoos for Every Celebration',
-      sq: 'këna me Xixëllima në Tiranë — Tatuazhe Shkëlqyese për Çdo Festë',
+      sq: 'këna me xixa në Tiranë — Tatuazhe Shkëlqyese për Çdo Festë',
     },
     intro: {
-      en: 'Glitter henna ("këna me xixëllima") is the showstopper. Layered over white henna for a 3D shimmer or standing alone for an all-glitter motif, it catches every light and holds up through hours of dancing. We use only cosmetic-grade, skin-safe glitter in dozens of colours — gold, rose-gold, silver, holographic, pastel, neon. Perfect for birthdays, festivals, hen-dos, kids parties and bridal moments where you want to be the most photographed person in the room.',
-      sq: 'këna me xixëllima është ajo që të lë pa fjalë. E vendosur mbi kanën e bardhë për një shkëlqim 3D ose e vetme si motiv tërësisht me xixëllima, ajo kap çdo dritë dhe rezistron orë të tëra vallëzimi. Përdorim vetëm xixëllima kozmetike, të sigurta për lëkurën, në dhjetëra ngjyra — ari, ari rozë, argjendi, holografike, pastel dhe neon. E përsosur për ditëlindje, festivale, mbrëmje beqarie, festa fëmijësh dhe momente nuseje, kur do të jeni personi më i fotografuar i mbrëmjes.',
+      en: 'Glitter henna ("këna me xixa") is the showstopper. Layered over white henna for a 3D shimmer or standing alone for an all-glitter motif, it catches every light and holds up through hours of dancing. We use only cosmetic-grade, skin-safe glitter in dozens of colours — gold, rose-gold, silver, holographic, pastel, neon. Perfect for birthdays, festivals, hen-dos, kids parties and bridal moments where you want to be the most photographed person in the room.',
+      sq: 'këna me xixa është ajo që të lë pa fjalë. E vendosur mbi kanën e bardhë për një shkëlqim 3D ose e vetme si motiv tërësisht me xixa, ajo kap çdo dritë dhe reziston orë të tëra vallëzimi. Përdorim vetëm xixëllima kozmetike, të sigurta për lëkurën, në dhjetëra ngjyra — ari, ari rozë, argjendi, holografike, pastel dhe neon. E përsosur për ditëlindje, festivale, mbrëmje beqarie, festa fëmijësh dhe momente nuseje, kur do të jeni personi më i fotografuar i mbrëmjes.',
     },
     occasions: {
       en: ['Birthdays', 'Festivals', 'Hen parties', "Kids' parties", 'Bridal showers'],
@@ -469,38 +469,38 @@ export const localizedCategories: LocalizedCategory[] = [
     },
     faqs: [
       {
-        q: { en: 'How long does glitter henna last?', sq: 'Sa zgjat këna me xixëllima?' },
+        q: { en: 'How long does glitter henna last?', sq: 'Sa zgjat këna me xixa?' },
         a: {
           en: 'Glitter henna lasts 2 to 5 days depending on placement and how often you wash. Areas that rub against clothing fade faster — we recommend forearms, calves, shoulders and chest.',
-          sq: 'këna me xixëllima zgjat 2 deri në 5 ditë, varësisht nga vendndodhja dhe sa shpesh laheni. Zonat që fërkohen me rrobat zbehen më shpejt — rekomandojmë parakrahët, pulpat, supet dhe kraharorin.',
+          sq: 'këna me xixa zgjat 2 deri në 5 ditë, varësisht nga vendndodhja dhe sa shpesh laheni. Zonat që fërkohen me rrobat zbehen më shpejt — rekomandojmë parakrahët, pulpat, supet dhe kraharorin.',
         },
       },
       {
-        q: { en: 'Is the glitter safe for skin?', sq: 'A janë të sigurta xixëllimat për lëkurën?' },
+        q: { en: 'Is the glitter safe for skin?', sq: 'A janë të sigurta xixat për lëkurën?' },
         a: {
           en: 'Yes. We use only cosmetic-grade glitter approved for body use, applied with body-safe adhesive paste. Safe for adults and children over 6.',
-          sq: 'Po. Përdorim vetëm xixëllima kozmetike të miratuara për përdorim mbi trup, të aplikuara me pastë ngjitëse të sigurt. Të sigurta për të rriturit dhe fëmijët mbi 6 vjeç.',
+          sq: 'Po. Përdorim vetëm xixa kozmetike të miratuara për përdorim mbi trup, të aplikuara me pastë ngjitëse të sigurt. Të sigurta për të rriturit dhe fëmijët mbi 6 vjeç.',
         },
       },
       {
-        q: { en: 'Can I combine glitter with brown or jagua henna?', sq: "A mund t'i kombinoj xixëllimat me kanën kafe ose jagua?" },
+        q: { en: 'Can I combine glitter with brown or jagua henna?', sq: "A mund t'i kombinoj xixat me kanën kafe ose jagua?" },
         a: {
           en: 'Yes — glitter accents added on top of natural henna or jagua designs are beautiful for bridal and festival looks. Glitter is added once the base design is dry; we discuss the combination during your booking.',
-          sq: 'Po — theksat me xixëllima të vendosura mbi dizajne të kënasë natyrale ose jagua dalin shumë bukur për pamje nuseje dhe festivalesh. Xixëllimat shtohen pasi dizajni bazë të jetë tharë; kombinimin e diskutojmë gjatë rezervimit.',
+          sq: 'Po — theksat me xixa të vendosura mbi dizajne të kënasë natyrale ose jagua dalin shumë bukur për pamje nuseje dhe festivalesh. Xixëllimat shtohen pasi dizajni bazë të jetë tharë; kombinimin e diskutojmë gjatë rezervimit.',
         },
       },
       {
         q: { en: 'Will it survive a pool or the beach?', sq: "A do t'i mbijetojë pishinës ose plazhit?" },
         a: {
           en: 'Light contact with water is fine but extended pool or sea time will lift the glitter. For festivals and beach holidays, plan to refresh after a swim.',
-          sq: "Kontakti i lehtë me ujin nuk është problem, por qëndrimi i gjatë në pishinë ose në det do t'i ngrejë xixëllimat. Për festivale dhe pushime në plazh, planifikoni një rifreskim pas notit.",
+          sq: "Kontakti i lehtë me ujin nuk është problem, por qëndrimi i gjatë në pishinë ose në det do t'i ngrejë xixat. Për festivale dhe pushime në plazh, planifikoni një rifreskim pas notit.",
         },
       },
       {
-        q: { en: 'Can you do glitter henna for a kids party?', sq: 'A bëni këna me xixëllima për festa fëmijësh?' },
+        q: { en: 'Can you do glitter henna for a kids party?', sq: 'A bëni këna me xixa për festa fëmijësh?' },
         a: {
           en: 'Yes — glitter henna stations are very popular for kids birthday parties in Tirana. We bring everything to your venue. Per-child pricing starts from 10€ for group bookings.',
-          sq: 'Po — stacionet me këna xixëllimash janë shumë të kërkuara për ditëlindjet e fëmijëve në Tiranë. Sjellim gjithçka tek vendi i juaj. Çmimi për fëmijë fillon nga 10€ për rezervime në grup.',
+          sq: 'Po — stacionet me këna xixash janë shumë të kërkuara për ditëlindjet e fëmijëve në Tiranë. Sjellim gjithçka tek vendi i juaj. Çmimi për fëmijë fillon nga 10€ për rezervime në grup.',
         },
       },
     ],
@@ -516,11 +516,11 @@ export const localizedCategories: LocalizedCategory[] = [
       '/images/glitter/IMG_8097.PNG',
     ],
     priceList: [
-      { name: { en: 'Small glitter tattoo',  sq: 'Tatuazh i vogël me xixëllima' }, description: { en: 'Single motif',             sq: 'Motiv i vetëm' },                       price: '10€' },
-      { name: { en: 'Medium glitter design', sq: 'Dizajn mesatar me xixëllima' },  description: { en: 'Forearm or shoulder',      sq: 'Parakrah ose sup' },                    price: '15€' },
-      { name: { en: 'Large glitter piece',   sq: 'Punim i madh me xixëllima' },    description: { en: 'Full hand or back',        sq: 'Dora e plotë ose shpina' },             price: '20€' },
-      { name: { en: 'Glitter bridal',        sq: 'Xixëllima për nuse' },           description: { en: 'Extended festival design', sq: 'Dizajn i zgjeruar festivali' },         price: '30€' },
-      { name: { en: 'Premium glitter set',   sq: 'Set premium me xixëllima' },     description: { en: 'Full design with accents', sq: 'Dizajn i plotë me theksa' },            price: '35€' },
+      { name: { en: 'Small glitter tattoo',  sq: 'Tatuazh i vogël me xixa' }, description: { en: 'Single motif',             sq: 'Motiv i vetëm' },                       price: '10€' },
+      { name: { en: 'Medium glitter design', sq: 'Dizajn mesatar me xixa' },  description: { en: 'Forearm or shoulder',      sq: 'Parakrah ose sup' },                    price: '15€' },
+      { name: { en: 'Large glitter piece',   sq: 'Punim i madh me xixa' },    description: { en: 'Full hand or back',        sq: 'Dora e plotë ose shpina' },             price: '20€' },
+      { name: { en: 'Glitter bridal',        sq: 'xixa për nuse' },           description: { en: 'Extended festival design', sq: 'Dizajn i zgjeruar festivali' },         price: '30€' },
+      { name: { en: 'Premium glitter set',   sq: 'Set premium me xixa' },     description: { en: 'Full design with accents', sq: 'Dizajn i plotë me theksa' },            price: '35€' },
     ],
   },
   {
@@ -570,7 +570,7 @@ export const localizedCategories: LocalizedCategory[] = [
         q: { en: 'How long does colourful henna last?', sq: 'Sa zgjat këna me ngjyra?' },
         a: {
           en: 'Coloured henna designs last 2 to 4 days. They fade gradually as you wash; aftercare is the same as glitter — keep dry for the first hour and avoid scrubbing.',
-          sq: 'Dizajnet me këna me ngjyra zgjasin 2 deri në 4 ditë. Zbehen gradualisht ndërsa laheni; kujdesi pas aplikimit është i njëjtë me xixëllimat — mbajeni të thatë gjatë orës së parë dhe shmangni fërkimin.',
+          sq: 'Dizajnet me këna me ngjyra zgjasin 2 deri në 4 ditë. Zbehen gradualisht ndërsa laheni; kujdesi pas aplikimit është i njëjtë me xixat — mbajeni të thatë gjatë orës së parë dhe shmangni fërkimin.',
         },
       },
       {
