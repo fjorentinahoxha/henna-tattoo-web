@@ -8,9 +8,11 @@ const otherLang = lang === 'sq' ? 'en' : 'sq';
 const site = getSite(lang);
 const t = dict.nav;
 
+const studioT = dict.studio.navLink;
 const links = [
   { href: localizePath('/#categories', lang), label: t.categories[lang], alt: t.categories[otherLang] },
   { href: localizePath('/#gallery',    lang), label: t.gallery[lang],    alt: t.gallery[otherLang]    },
+  { href: localizePath('/studio',      lang), label: studioT[lang],      alt: studioT[otherLang]      },
   { href: localizePath('/#events',     lang), label: t.events[lang],     alt: t.events[otherLang]     },
   { href: localizePath('/#about',      lang), label: t.about[lang],      alt: t.about[otherLang]      },
   { href: localizePath('/#hours',      lang), label: t.hours[lang],      alt: t.hours[otherLang]      },

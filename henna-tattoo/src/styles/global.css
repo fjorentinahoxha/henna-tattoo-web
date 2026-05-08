@@ -24,9 +24,27 @@
   line-gap-override: 0%;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-henna-50:  #fbf4ee;
+  --color-henna-100: #f4e3d2;
+  --color-henna-200: #e7c29e;
+  --color-henna-300: #d39b6a;
+  --color-henna-400: #b87441;
+  --color-henna-500: #8b4513;
+  --color-henna-600: #6f3610;
+  --color-henna-700: #55280b;
+  --color-henna-800: #3d1c08;
+  --color-henna-900: #261104;
+  --color-cream: #fdf8f3;
+  --color-ink: #1a120b;
+
+  --font-display: "Playfair Display Variable", "Playfair Display", "Playfair Fallback", Georgia, serif;
+  --font-sans: "Inter Variable", Inter, "Inter Fallback", system-ui, -apple-system, sans-serif;
+
+  --background-image-paisley: radial-gradient(ellipse at top, rgba(139,69,19,0.08), transparent 60%), radial-gradient(ellipse at bottom right, rgba(211,155,106,0.10), transparent 60%);
+}
 
 @layer base {
   html {

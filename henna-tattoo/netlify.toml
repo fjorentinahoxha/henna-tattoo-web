@@ -8,7 +8,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18.16.1"
+  NODE_VERSION = "26"
   HUSKY        = "0"
 
 # www → apex (one canonical host).

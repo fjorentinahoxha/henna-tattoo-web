@@ -243,6 +243,61 @@ const dict = {
     home: { en: 'Back to home', sq: 'Kthehu te faqja kryesore' },
     browse: { en: 'Browse categories', sq: 'Shfleto kategoritë' },
   },
+  studio: {
+    navLink:    { en: 'Studio',   sq: 'Studio' },
+    metaTitlePrefix: { en: 'Design Studio', sq: 'Studioja e Dizajnit' },
+    metaDescription: {
+      en: 'Design your henna tattoo: pick a hand pose, drop motifs, change colors, see the price and book on WhatsApp.',
+      sq: 'Dizajno tatuazhin tënd me këna: zgjidh pozën, vendos motivet, ndrysho ngjyrat, shiko çmimin dhe rezervo në WhatsApp.',
+    },
+    eyebrow: { en: 'Design Studio', sq: 'Studioja e Dizajnit' },
+    title:   { en: 'Design your henna.', sq: 'Dizajno kënanë tënde.' },
+    intro: {
+      en: 'Pick a hand pose, drop motifs, change the skin tone and henna color, then send your design to WhatsApp to book.',
+      sq: 'Zgjidh pozën e dorës, vendos motivet, ndrysho tonin e lëkurës dhe ngjyrën e kënasë, pastaj dërgo dizajnin në WhatsApp për të rezervuar.',
+    },
+    noJsTitle: { en: 'JavaScript required', sq: 'Nevojitet JavaScript' },
+    noJsBody: {
+      en: 'The design studio runs in your browser. Please enable JavaScript, or message us directly to book a custom design.',
+      sq: 'Studioja e dizajnit funksionon në shfletuesin tënd. Aktivizo JavaScript-in, ose na shkruaj drejtpërdrejt për të rezervuar një dizajn me porosi.',
+    },
+    panels: {
+      skin:    { en: 'Skin tone',    sq: 'Toni i lëkurës' },
+      henna:   { en: 'Henna color',  sq: 'Ngjyra e kënasë' },
+      motifs:  { en: 'Motifs',       sq: 'Motivet' },
+      pricing: { en: 'Size & price', sq: 'Madhësia & çmimi' },
+      share:   { en: 'Save & share', sq: 'Ruaj & ndaje' },
+    },
+    actions: {
+      add:      { en: 'Add',     sq: 'Shto' },
+      remove:   { en: 'Remove',  sq: 'Hiq' },
+      clear:    { en: 'Clear',   sq: 'Pastro' },
+      undo:     { en: 'Undo',    sq: 'Anulo' },
+      download: { en: 'Download as PNG', sq: 'Shkarko si PNG' },
+      sendWa:   { en: 'Send on WhatsApp', sq: 'Dërgo në WhatsApp' },
+    },
+    pricing: {
+      categoryLabel: { en: 'Henna type', sq: 'Lloji i kënasë' },
+      sizeLabel:     { en: 'Size',       sq: 'Madhësia' },
+      priceLabel:    { en: 'Price',      sq: 'Çmimi' },
+      note: {
+        en: 'Price is an estimate based on size; final quote may vary by detail and placement.',
+        sq: 'Çmimi është orientues sipas madhësisë; oferta finale mund të ndryshojë sipas detajeve dhe vendndodhjes.',
+      },
+    },
+    share: {
+      waMessage: {
+        en: "Hi! I designed this on your studio.\nHenna: {category}\nSize: {size}\nPrice: {price}\nCan we book a session?",
+        sq: 'Përshëndetje! E dizajnova në studion tuaj.\nKëna: {category}\nMadhësia: {size}\nÇmimi: {price}\nA mund të rezervojmë një seancë?',
+      },
+    },
+    empty: {
+      hint: {
+        en: 'Tap a motif from the panel to place it on the hand. Drag to move, use the corners to rotate or resize.',
+        sq: 'Trokit një motiv nga paneli për ta vendosur mbi dorë. Tërhiq për ta lëvizur, përdor cepat për ta rrotulluar ose për të ndryshuar madhësinë.',
+      },
+    },
+  },
   footer: {
     blurb: {
       en: 'Handcrafted henna tattoos for weddings, festivals, events and everyday magic. Based in {place}.',

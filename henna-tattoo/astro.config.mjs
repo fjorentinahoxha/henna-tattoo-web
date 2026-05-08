@@ -1,9 +1,8 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://hennatattooalbania.com',
-  integrations: [tailwind({ applyBaseStyles: false })],
   compressHTML: true,
   build: {
     // Inline every stylesheet — eliminates the render-blocking <link rel="stylesheet">
@@ -14,6 +13,7 @@ export default defineConfig({
     assets: '_astro',
   },
   vite: {
+    plugins: [tailwindcss()],
     build: {
       cssCodeSplit: false,
     },

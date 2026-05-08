@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid meet">
+  <!--
+    Stylized open-palm silhouette (back of right hand, fingers up).
+    The <g data-skin> wrapper is what the studio recolors with the chosen skin tone.
+    The faint outline gives it definition over any background.
+  -->
+  <defs>
+    <radialGradient id="palmShadow" cx="50%" cy="55%" r="60%">
+      <stop offset="60%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.08)"/>
+    </radialGradient>
+  </defs>
+
+  <g data-skin fill="#e6b894" stroke="rgba(60,30,15,0.22)" stroke-width="1.6" stroke-linejoin="round">
+    <!-- Palm + wrist as one rounded blob -->
+    <path d="
+      M 130 470
+      C 120 420, 105 380, 100 340
+      C 95 300, 90 260, 100 230
+      C 110 210, 130 205, 150 210
+      L 150 215
+      L 170 215
+      L 170 210
+      C 170 205, 175 200, 185 200
+      L 215 200
+      C 225 200, 230 205, 230 210
+      L 230 215
+      L 250 215
+      L 250 210
+      C 270 205, 290 215, 300 235
+      C 310 265, 308 305, 302 345
+      C 296 385, 282 425, 272 470
+      C 268 488, 250 495, 200 495
+      C 150 495, 132 488, 130 470 Z
+    "/>
+    <!-- Thumb -->
+    <path d="
+      M 110 290
+      C 80 270, 55 245, 50 215
+      C 48 195, 60 180, 78 180
+      C 96 180, 110 200, 118 230
+      C 122 248, 122 268, 118 285
+      Z
+    "/>
+    <!-- Index finger -->
+    <path d="
+      M 138 215
+      C 138 175, 140 130, 144 100
+      C 146 88, 154 80, 162 80
+      C 170 80, 178 88, 180 100
+      C 184 130, 182 175, 180 215
+      Z
+    "/>
+    <!-- Middle finger -->
+    <path d="
+      M 184 200
+      C 184 160, 186 110, 190 75
+      C 192 62, 200 54, 209 54
+      C 218 54, 226 62, 228 75
+      C 232 110, 230 160, 230 200
+      Z
+    "/>
+    <!-- Ring finger -->
+    <path d="
+      M 232 200
+      C 232 165, 234 120, 238 92
+      C 240 80, 248 72, 256 72
+      C 264 72, 272 80, 274 92
+      C 278 120, 276 165, 274 200
+      Z
+    "/>
+    <!-- Pinky -->
+    <path d="
+      M 274 215
+      C 274 185, 276 150, 280 130
+      C 282 120, 290 114, 297 114
+      C 304 114, 312 120, 314 130
+      C 318 150, 316 185, 314 215
+      Z
+    "/>
+  </g>
+
+  <!-- Subtle palm shadow for depth (drawn after, doesn't recolor) -->
+  <ellipse cx="200" cy="340" rx="100" ry="120" fill="url(#palmShadow)" pointer-events="none"/>
+</svg>
