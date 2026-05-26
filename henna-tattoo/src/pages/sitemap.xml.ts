@@ -28,6 +28,11 @@ export const GET: APIRoute = ({ site }) => {
       priority: '0.8',
       changefreq: 'monthly',
     },
+    {
+      path: '/studio',
+      priority: '0.7',
+      changefreq: 'monthly',
+    },
     ...categories.map((c) => ({
       path: `/categories/${c.slug}`,
       priority: '0.9',
