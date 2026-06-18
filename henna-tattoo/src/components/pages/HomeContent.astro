@@ -16,16 +16,6 @@ const categories = getCategories(lang);
 const events = getEvents(lang);
 const products = getProducts(lang);
 const t = dict.home;
-const days = t.days;
-
-const dayCards = [
-  { day: days.mon[lang],    hours: '18:00 – 22:00',   bg: 'bg-amber-50',   border: 'border-amber-200',   text: 'text-amber-900' },
-  { day: days.tue[lang],    hours: '18:00 – 22:00',   bg: 'bg-rose-50',    border: 'border-rose-200',    text: 'text-rose-900'  },
-  { day: days.wed[lang],    hours: '18:00 – 22:00',   bg: 'bg-violet-50',  border: 'border-violet-200',  text: 'text-violet-900'},
-  { day: days.thu[lang],    hours: '18:00 – 22:00',   bg: 'bg-teal-50',    border: 'border-teal-200',    text: 'text-teal-900'  },
-  { day: days.fri[lang],    hours: '18:00 – 22:00',   bg: 'bg-sky-50',     border: 'border-sky-200',     text: 'text-sky-900'   },
-  { day: days.satSun[lang], hours: t.twentyFourHours[lang], bg: 'bg-henna-50',   border: 'border-henna-300',   text: 'text-henna-800' },
-];
 
 const galleryImages = [
   { src: '/images/natural/IMG_2995.jpg',   alt: lang === 'sq' ? 'Dizajn me këna kafe'      : 'Brown henna design'    },
@@ -266,13 +256,11 @@ const galleryImages = [
         </p>
       </div>
 
-      <div class="mt-12 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        {dayCards.map(({ day, hours, bg, border, text }) => (
-          <div class={`flex flex-col items-center gap-3 rounded-2xl border ${bg} ${border} px-4 py-6 shadow-sm`}>
-            <span class={`text-xs font-semibold uppercase tracking-widest ${text}`}>{day}</span>
-            <span class={`font-display text-lg font-bold ${text}`}>{hours}</span>
-          </div>
-        ))}
+      <div class="mt-10 flex justify-center">
+        <div class="max-w-md rounded-2xl border border-henna-200 bg-henna-50/60 px-8 py-8 text-center shadow-sm">
+          <p class="font-display text-2xl text-henna-700">{t.hoursReservationTitle[lang]}</p>
+          <p class="mt-3 text-ink/70">{t.hoursMinNotice[lang]}</p>
+        </div>
       </div>
 
       <p class="mt-8 flex items-center justify-center gap-2 text-sm text-ink/70">

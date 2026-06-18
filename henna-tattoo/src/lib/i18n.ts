@@ -125,6 +125,14 @@ const dict = {
       en: 'Book via the contact form or WhatsApp to reserve your time',
       sq: 'Rezervo orarin tënd përmes formularit ose WhatsApp',
     },
+    hoursReservationTitle: {
+      en: 'By reservation only',
+      sq: 'Vetëm me rezervim',
+    },
+    hoursMinNotice: {
+      en: 'Please book at least 1 day in advance.',
+      sq: 'Të lutem rezervo të paktën 1 ditë para.',
+    },
     days: {
       mon: { en: 'Monday',    sq: 'E hënë' },
       tue: { en: 'Tuesday',   sq: 'E martë' },

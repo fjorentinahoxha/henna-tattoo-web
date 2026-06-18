@@ -129,20 +129,9 @@ const businessLd = {
   founder: { '@id': personId },
   employee: { '@id': personId },
   areaServed: site.serviceAreas.map((a) => ({ '@type': 'City', name: `${a.name}, Albania`, alternateName: a.nameSq })),
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '18:00',
-      closes: '22:00',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Saturday', 'Sunday'],
-      opens: '00:00',
-      closes: '23:59',
-    },
-  ],
+  // Studio is by reservation only — we deliberately omit fixed
+  // OpeningHoursSpecification and signal appointment-based service via
+  // hoursAvailable on the contactPoint below.
   contactPoint: [{
     '@type': 'ContactPoint',
     contactType: 'Booking',
