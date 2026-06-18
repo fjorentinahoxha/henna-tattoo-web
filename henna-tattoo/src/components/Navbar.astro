@@ -9,10 +9,12 @@ const site = getSite(lang);
 const t = dict.nav;
 
 const studioT = dict.studio.navLink;
+const shopT = dict.shop.navLink;
 const links = [
   { href: localizePath('/#categories', lang), label: t.categories[lang], alt: t.categories[otherLang] },
   { href: localizePath('/#gallery',    lang), label: t.gallery[lang],    alt: t.gallery[otherLang]    },
   { href: localizePath('/studio',      lang), label: studioT[lang],      alt: studioT[otherLang]      },
+  { href: localizePath('/shop',        lang), label: shopT[lang],        alt: shopT[otherLang]        },
   { href: localizePath('/#events',     lang), label: t.events[lang],     alt: t.events[otherLang]     },
   { href: localizePath('/#about',      lang), label: t.about[lang],      alt: t.about[otherLang]      },
   { href: localizePath('/#hours',      lang), label: t.hours[lang],      alt: t.hours[otherLang]      },
@@ -33,10 +35,7 @@ const enHref = localizePath(Astro.url.pathname, 'en');
   <div class="container-prose flex h-16 items-center justify-between gap-3">
     <a href={homeHref} class="flex items-center gap-3" aria-label={site.name}>
       <Logo size={40} />
-      <span class="flex flex-col leading-tight">
-        <span class="font-display text-lg text-henna-700">{site.name}</span>
-        <span class="hidden text-[10px] uppercase tracking-[0.25em] text-henna-500 lg:inline">{site.tagline}</span>
-      </span>
+      <span class="font-display text-lg text-henna-700 leading-tight">{site.name}</span>
     </a>
 
     <nav class="hidden items-center gap-6 md:flex" aria-label={t.main[lang]}>

@@ -33,6 +33,11 @@ export const GET: APIRoute = ({ site }) => {
       priority: '0.7',
       changefreq: 'monthly',
     },
+    {
+      path: '/shop',
+      priority: '0.8',
+      changefreq: 'weekly',
+    },
     ...categories.map((c) => ({
       path: `/categories/${c.slug}`,
       priority: '0.9',

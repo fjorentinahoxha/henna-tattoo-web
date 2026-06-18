@@ -1844,5 +1844,61 @@
     "hasAlpha": false,
     "extOriginal": ".jpg",
     "extFallback": ".jpg"
+  },
+  "shop/brown-cone.png": {
+    "key": "941944:1125c6d0f6ba452a",
+    "kind": "image",
+    "fallback": "shop/brown-cone.png",
+    "widths": [
+      320,
+      480,
+      640,
+      1024
+    ],
+    "hasAlpha": false,
+    "extOriginal": ".png",
+    "extFallback": ".png"
+  },
+  "shop/jagua-cone.png": {
+    "key": "943282:b08c6bd0914cec28",
+    "kind": "image",
+    "fallback": "shop/jagua-cone.png",
+    "widths": [
+      320,
+      480,
+      640,
+      1024
+    ],
+    "hasAlpha": false,
+    "extOriginal": ".png",
+    "extFallback": ".png"
+  },
+  "shop/stencils.jpg": {
+    "key": "673270:162f4309fc7808ba",
+    "kind": "image",
+    "fallback": "shop/stencils.jpg",
+    "widths": [
+      320,
+      480,
+      640,
+      1024
+    ],
+    "hasAlpha": false,
+    "extOriginal": ".jpg",
+    "extFallback": ".jpg"
+  },
+  "shop/white-cone.png": {
+    "key": "712046:79442f33b56451a4",
+    "kind": "image",
+    "fallback": "shop/white-cone.png",
+    "widths": [
+      320,
+      480,
+      640,
+      1024
+    ],
+    "hasAlpha": false,
+    "extOriginal": ".png",
+    "extFallback": ".png"
   }
 }

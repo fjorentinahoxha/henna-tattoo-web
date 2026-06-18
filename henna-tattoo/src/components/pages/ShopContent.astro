@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Picture from '../Picture.astro';
+import { getSite } from '../../lib/site';
+import { getLang, dict, pick, fmt } from '../../lib/i18n';
+import { getProducts } from '../../lib/shop';
+
+const lang = getLang(Astro);
+const site = getSite(lang);
+const t = dict.shop;
+const products = getProducts(lang);
+
+function waLink(productTitle: string, price: string): string {
+  const message = fmt(pick(t.waMessage, lang), { product: productTitle, price });
+  return `https://wa.me/${site.contact.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+---
+
+<Layout
+  title={`${pick(t.metaTitlePrefix, lang)} — ${site.name}`}
+  description={pick(t.metaDescription, lang)}
+>
+  <section class="py-12 sm:py-16">
+    <div class="container-prose">
+      <span class="eyebrow">{pick(t.eyebrow, lang)}</span>
+      <h1 class="mt-3 text-4xl font-display text-henna-700 sm:text-5xl">{pick(t.title, lang)}</h1>
+      <p class="mt-4 max-w-2xl text-ink/70">{pick(t.intro, lang)}</p>
+
+      <ul class="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-2">
+        {products.map((p) => (
+          <li class="group flex flex-col overflow-hidden rounded-2xl border border-henna-100 bg-white shadow-sm transition hover:shadow-md">
+            <div class="relative aspect-[4/3] overflow-hidden bg-white">
+              <Picture
+                src={p.image}
+                alt={p.imageAlt}
+                sizes="(min-width: 1024px) 30rem, (min-width: 640px) 45vw, 90vw"
+                width={p.width}
+                height={p.height}
+                class="absolute inset-0 h-full w-full object-contain transition duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h2 class="font-display text-2xl text-henna-700">{p.title}</h2>
+              <p class="mt-2 text-ink/70 leading-relaxed">{p.description}</p>
+              <div class="mt-5 flex items-baseline gap-2">
+                <span class="font-display text-3xl text-henna-700">{p.price}</span>
+                <span class="text-xs uppercase tracking-wider text-ink/55">{p.unit}</span>
+              </div>
+              <a
+                href={waLink(p.title, p.price)}
+                target="_blank"
+                rel="noreferrer"
+                class="btn-primary mt-6 justify-center !py-3"
+              >
+                {pick(t.orderBtn, lang)}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-12 rounded-2xl border border-henna-100 bg-cream/50 p-6">
+        <h2 class="font-display text-2xl text-henna-700">{pick(t.noteHeading, lang)}</h2>
+        <p class="mt-2 max-w-2xl text-ink/70 leading-relaxed">{pick(t.noteBody, lang)}</p>
+      </div>
+    </div>
+  </section>
+</Layout>

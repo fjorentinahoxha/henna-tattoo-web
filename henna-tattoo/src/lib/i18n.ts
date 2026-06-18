@@ -140,6 +140,13 @@ const dict = {
       sq: 'Më trego rastin, stilin dhe sa hapësirë dëshiron të mbulosh. Do të kthehem me një skicë dhe një ofertë.',
     },
     ctaButton: { en: 'Start a booking', sq: 'Fillo rezervimin' },
+    shopEyebrow: { en: 'Shop', sq: 'Dyqani' },
+    shopTitle:   { en: 'Take the henna home', sq: 'Merre kënanë në shtëpi' },
+    shopIntro: {
+      en: 'Hand-rolled cones and reusable stencils, ready to order. Delivered across Albania.',
+      sq: 'Konë të punuar me dorë dhe stencila të ripërdorshëm, gati për porosi. Dorëzim në të gjithë Shqipërinë.',
+    },
+    shopCta: { en: 'Visit the shop →', sq: 'Vizito dyqanin →' },
   },
   category: {
     backLink: { en: 'All categories', sq: 'Të gjitha kategoritë' },
@@ -242,6 +249,31 @@ const dict = {
     },
     home: { en: 'Back to home', sq: 'Kthehu te faqja kryesore' },
     browse: { en: 'Browse categories', sq: 'Shfleto kategoritë' },
+  },
+  shop: {
+    navLink:         { en: 'Shop',  sq: 'Dyqani' },
+    metaTitlePrefix: { en: 'Shop',  sq: 'Dyqani' },
+    metaDescription: {
+      en: 'Order henna cones (brown, jagua, white) and reusable hand stencils. Handmade in Tirana, delivered across Albania.',
+      sq: 'Porosit konë kënaje (kafe, jagua, e bardhë) dhe stencila duarsh të ripërdorshëm. Të punuara me dorë në Tiranë, dorëzim në të gjithë Shqipërinë.',
+    },
+    eyebrow: { en: 'Shop', sq: 'Dyqani' },
+    title:   { en: 'Take the henna home.', sq: 'Merre kënanë në shtëpi.' },
+    intro: {
+      en: 'Hand-rolled cones and reusable stencils made by the studio. Order on WhatsApp and we will arrange delivery or pickup in Tirana.',
+      sq: 'Konë të punuar me dorë dhe stencila të ripërdorshëm nga studioja. Porosit në WhatsApp dhe rregullojmë dorëzimin ose marrjen në Tiranë.',
+    },
+    productPriceLabel: { en: 'Price', sq: 'Çmimi' },
+    orderBtn:          { en: 'Order on WhatsApp', sq: 'Porosit në WhatsApp' },
+    noteHeading:       { en: 'Delivery & pickup', sq: 'Dorëzimi & marrja' },
+    noteBody: {
+      en: 'Pickup at the studio in Garden City, Tirana. Delivery available across Albania via courier (cost depends on destination). Payment in cash, bank transfer or on delivery.',
+      sq: 'Marrja në studio te Garden City, Tiranë. Dorëzimi në të gjithë Shqipërinë me korrier (kostoja varet nga destinacioni). Pagesa me para në dorë, transfertë bankare ose në momentin e dorëzimit.',
+    },
+    waMessage: {
+      en: "Hi! I'd like to order: 1× {product} ({price}). How can we arrange delivery or pickup?",
+      sq: 'Përshëndetje! Dua të porosis: 1× {product} ({price}). Si mund të rregullojmë dorëzimin ose marrjen?',
+    },
   },
   studio: {
     navLink:    { en: 'Studio',   sq: 'Studio' },

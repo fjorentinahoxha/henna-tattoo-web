@@ -6,6 +6,7 @@ import CategoryCard from '../CategoryCard.astro';
 import Picture from '../Picture.astro';
 import { getCategories } from '../../lib/categories';
 import { getEvents } from '../../lib/events';
+import { getProducts } from '../../lib/shop';
 import { getSite } from '../../lib/site';
 import { getLang, dict, fmt, localizePath } from '../../lib/i18n';
 
@@ -13,6 +14,7 @@ const lang = getLang(Astro);
 const site = getSite(lang);
 const categories = getCategories(lang);
 const events = getEvents(lang);
+const products = getProducts(lang);
 const t = dict.home;
 const days = t.days;
 
@@ -83,6 +85,46 @@ const galleryImages = [
           ))
         }
       </div>
+    </div>
+  </section>
+
+  <section id="shop" class="py-10 sm:py-12">
+    <div class="container-prose">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="max-w-xl">
+          <span class="eyebrow">{t.shopEyebrow[lang]}</span>
+          <h2 class="section-title mt-3">{t.shopTitle[lang]}</h2>
+          <p class="mt-4 text-lg text-ink/70">{t.shopIntro[lang]}</p>
+        </div>
+        <a href={localizePath('/shop', lang)} class="btn-primary">{t.shopCta[lang]}</a>
+      </div>
+
+      <ul class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {products.map((p) => (
+          <li>
+            <a
+              href={localizePath('/shop', lang)}
+              class="group block overflow-hidden rounded-2xl border border-henna-100 bg-white shadow-sm transition hover:shadow-md"
+            >
+              <div class="relative aspect-square overflow-hidden bg-henna-50">
+                <Picture
+                  src={p.image}
+                  alt={p.imageAlt}
+                  sizes="(min-width: 640px) 22vw, 45vw"
+                  loading="lazy"
+                  width={p.width}
+                  height={p.height}
+                  class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div class="p-3">
+                <p class="text-sm font-medium text-henna-700">{p.title}</p>
+                <p class="mt-1 font-display text-lg text-henna-700">{p.price}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
