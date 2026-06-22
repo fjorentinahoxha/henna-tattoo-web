@@ -302,19 +302,22 @@ const dict = {
       sq: 'Studioja e dizajnit funksionon në shfletuesin tënd. Aktivizo JavaScript-in, ose na shkruaj drejtpërdrejt për të rezervuar një dizajn me porosi.',
     },
     panels: {
-      skin:    { en: 'Skin tone',    sq: 'Toni i lëkurës' },
       henna:   { en: 'Henna color',  sq: 'Ngjyra e kënasë' },
       motifs:  { en: 'Motifs',       sq: 'Motivet' },
       pricing: { en: 'Size & price', sq: 'Madhësia & çmimi' },
       share:   { en: 'Save & share', sq: 'Ruaj & ndaje' },
+      photo:   { en: 'Your hand',    sq: 'Dora jote' },
+      designs: { en: 'Designs',      sq: 'Dizajnet' },
+      draw:    { en: 'Draw your own', sq: 'Vizato vetë' },
     },
     actions: {
-      add:      { en: 'Add',     sq: 'Shto' },
-      remove:   { en: 'Remove',  sq: 'Hiq' },
-      clear:    { en: 'Clear',   sq: 'Pastro' },
-      undo:     { en: 'Undo',    sq: 'Anulo' },
-      download: { en: 'Download as PNG', sq: 'Shkarko si PNG' },
-      sendWa:   { en: 'Send on WhatsApp', sq: 'Dërgo në WhatsApp' },
+      add:            { en: 'Add',     sq: 'Shto' },
+      remove:         { en: 'Remove',  sq: 'Hiq' },
+      removeSelected: { en: 'Remove selected', sq: 'Hiq të zgjedhurin' },
+      clear:          { en: 'Clear',   sq: 'Pastro' },
+      undo:           { en: 'Undo',    sq: 'Anulo' },
+      download:       { en: 'Download as PNG', sq: 'Shkarko si PNG' },
+      sendWa:         { en: 'Send on WhatsApp', sq: 'Dërgo në WhatsApp' },
     },
     pricing: {
       categoryLabel: { en: 'Henna type', sq: 'Lloji i kënasë' },
@@ -335,6 +338,47 @@ const dict = {
       hint: {
         en: 'Tap a motif from the panel to place it on the hand. Drag to move, use the corners to rotate or resize.',
         sq: 'Trokit një motiv nga paneli për ta vendosur mbi dorë. Tërhiq për ta lëvizur, përdor cepat për ta rrotulluar ose për të ndryshuar madhësinë.',
+      },
+    },
+    photo: {
+      uploadBtn:   { en: 'Take or upload a photo of your hand', sq: 'Bëj ose ngarko një foto të dorës tënde' },
+      removeBtn:   { en: 'Use template hand', sq: 'Përdor dorën shabllon' },
+      activeLabel: { en: 'Your photo is being used as the canvas.', sq: 'Fotoja jote po përdoret si kanvas.' },
+      hint: {
+        en: 'Hold your hand flat and take a clear photo. Then place motifs on top of it like usual.',
+        sq: 'Mbaje dorën të hapur dhe bëj një foto të qartë. Pastaj vendos motivet mbi të si zakonisht.',
+      },
+      tooLarge: {
+        en: 'That image is too large (max 10 MB). Please choose a smaller one.',
+        sq: 'Kjo foto është shumë e madhe (maks 10 MB). Të lutem zgjidh një më të vogël.',
+      },
+    },
+    designs: {
+      hint: {
+        en: 'Pick a design to drop on the canvas, then drag, rotate and resize it on top of your hand.',
+        sq: 'Zgjidh një dizajn për ta vendosur në kanvas, pastaj tërhiqe, rrotulloje dhe ndryshoji madhësinë mbi dorën tënde.',
+      },
+      uploadBtn: {
+        en: 'Upload your own design',
+        sq: 'Ngarko dizajnin tënd',
+      },
+      uploadHint: {
+        en: 'Found a design on Pinterest? Save it to your phone, then upload it here.',
+        sq: 'Gjete një dizajn në Pinterest? Ruaje në telefon dhe ngarkoje këtu.',
+      },
+    },
+    draw: {
+      startBtn: { en: 'Start drawing', sq: 'Fillo vizatimin' },
+      stopBtn:  { en: 'Stop drawing',  sq: 'Ndalo vizatimin' },
+      brushLabel: { en: 'Brush size',  sq: 'Madhësia e furçës' },
+      undo:     { en: 'Undo last line', sq: 'Anulo vijën e fundit' },
+      hint: {
+        en: 'Turn on drawing, then draw your own henna design right on the hand with your mouse or finger. It uses the henna color you picked above.',
+        sq: 'Aktivizo vizatimin, pastaj vizato dizajnin tënd me këna mbi dorë me miun ose gishtin. Përdor ngjyrën e kënasë që zgjodhe më lart.',
+      },
+      activeHint: {
+        en: 'Drawing is on — drag on the hand to draw. Tap “Stop drawing” to move motifs again.',
+        sq: 'Vizatimi është aktiv — tërhiq mbi dorë për të vizatuar. Trokit “Ndalo vizatimin” për të lëvizur motivet.',
       },
     },
   },

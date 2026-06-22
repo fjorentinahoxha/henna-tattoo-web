@@ -67,6 +67,16 @@ export const STUDIO_CONFIG = {
     /** Default scale (relative to natural SVG viewBox) when a motif is dropped on the canvas. */
     initialScale: 0.5,
   },
+
+  draw: {
+    /** Brush widths (in canvas pixels) offered by the free-draw tool. */
+    brushSizes: [
+      { id: 'thin',   label: { en: 'Thin',   sq: 'Hollë' },    width: 5 },
+      { id: 'medium', label: { en: 'Medium', sq: 'Mesatare' }, width: 10 },
+      { id: 'thick',  label: { en: 'Thick',  sq: 'Trashë' },   width: 17 },
+    ],
+    defaultSizeId: 'medium',
+  },
 } as const;
 
 export type StudioConfig = typeof STUDIO_CONFIG;

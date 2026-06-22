@@ -1,16 +1,21 @@
 // Tiny store. One source of truth, dispatch actions to mutate, subscribe to react.
 // Pure: no DOM, no Konva. The canvas and the UI both subscribe to this.
 
-import type { DesignState, Layer, MotifLayer } from './types';
+import type { DesignState, Layer, MotifLayer, DesignOverlayLayer, StrokeLayer } from './types';
 import { STUDIO_CONFIG } from '../studio.config';
 
 export type Action =
-  | { type: 'set-skin';      toneId: string }
-  | { type: 'set-henna';     colorId: string }
-  | { type: 'set-size';      sizeIndex: number }
-  | { type: 'add-motif';     motifId: string; x: number; y: number }
-  | { type: 'update-layer';  id: string; patch: Partial<Omit<Layer, 'id' | 'kind'>> }
-  | { type: 'remove-layer';  id: string }
+  | { type: 'set-henna';       colorId: string }
+  | { type: 'set-size';        sizeIndex: number }
+  | { type: 'add-motif';       motifId: string; x: number; y: number }
+  | { type: 'add-design';      src: string; x: number; y: number }
+  | { type: 'add-stroke';      points: number[]; width: number; color: string }
+  | { type: 'undo-stroke' }
+  | { type: 'update-layer';    id: string; patch: Partial<Omit<Layer, 'id' | 'kind'>> }
+  | { type: 'remove-layer';    id: string }
+  | { type: 'select-layer';    id: string | null }
+  | { type: 'set-user-hand';   src: string }
+  | { type: 'clear-user-hand' }
   | { type: 'clear' };
 
 export type Listener = (state: DesignState) => void;
@@ -25,6 +30,8 @@ const initial: DesignState = {
   hennaColorId: STUDIO_CONFIG.defaults.hennaColorId,
   sizeIndex:   STUDIO_CONFIG.defaults.sizeIndex,
   layers: [],
+  selectedLayerId: null,
+  userHandImage: null,
 };
 
 let state: DesignState = initial;
@@ -48,7 +55,6 @@ export function dispatch(action: Action): void {
 
 function reduce(s: DesignState, a: Action): DesignState {
   switch (a.type) {
-    case 'set-skin':  return { ...s, skinToneId:   a.toneId };
     case 'set-henna': return { ...s, hennaColorId: a.colorId };
     case 'set-size':  return { ...s, sizeIndex:    a.sizeIndex };
     case 'add-motif': {
@@ -61,7 +67,49 @@ function reduce(s: DesignState, a: Action): DesignState {
         scale: STUDIO_CONFIG.motifs.initialScale,
         rotation: 0,
       };
+      // Auto-select newly added motif so the delete affordance shows up immediately.
+      return { ...s, layers: [...s.layers, layer], selectedLayerId: layer.id };
+    }
+    case 'add-design': {
+      const layer: DesignOverlayLayer = {
+        id: newId(),
+        kind: 'design',
+        src: a.src,
+        x: a.x,
+        y: a.y,
+        scale: 1,
+        rotation: 0,
+        opacity: 0.92,
+      };
+      return { ...s, layers: [...s.layers, layer], selectedLayerId: layer.id };
+    }
+    case 'add-stroke': {
+      const layer: StrokeLayer = {
+        id: newId(),
+        kind: 'stroke',
+        points: a.points,
+        width: a.width,
+        color: a.color,
+      };
+      // Strokes aren't selectable/transformable, so leave the current selection alone.
       return { ...s, layers: [...s.layers, layer] };
+    }
+    case 'undo-stroke': {
+      // Remove the most recently added stroke layer (leave motifs/designs untouched).
+      let lastStrokeIdx = -1;
+      for (let i = s.layers.length - 1; i >= 0; i--) {
+        if (s.layers[i].kind === 'stroke') {
+          lastStrokeIdx = i;
+          break;
+        }
+      }
+      if (lastStrokeIdx === -1) return s;
+      const removed = s.layers[lastStrokeIdx];
+      return {
+        ...s,
+        layers: s.layers.filter((_, i) => i !== lastStrokeIdx),
+        selectedLayerId: s.selectedLayerId === removed.id ? null : s.selectedLayerId,
+      };
     }
     case 'update-layer': {
       return {
@@ -70,10 +118,23 @@ function reduce(s: DesignState, a: Action): DesignState {
       };
     }
     case 'remove-layer': {
-      return { ...s, layers: s.layers.filter((l) => l.id !== a.id) };
+      return {
+        ...s,
+        layers: s.layers.filter((l) => l.id !== a.id),
+        selectedLayerId: s.selectedLayerId === a.id ? null : s.selectedLayerId,
+      };
+    }
+    case 'select-layer': {
+      return { ...s, selectedLayerId: a.id };
+    }
+    case 'set-user-hand': {
+      return { ...s, userHandImage: { src: a.src } };
+    }
+    case 'clear-user-hand': {
+      return { ...s, userHandImage: null };
     }
     case 'clear': {
-      return { ...s, layers: [] };
+      return { ...s, layers: [], selectedLayerId: null };
     }
   }
 }

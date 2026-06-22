@@ -15,16 +15,19 @@ export function mountStudio(root: HTMLElement, lang: Lang): StudioHandles {
   const placeholder = {
     exportPng: async () => new Blob(),
     resize: () => {},
+    setDrawMode: (_active: boolean) => {},
+    setBrushWidth: (_width: number) => {},
   };
   buildLayout(root, lang, placeholder);
 
   const mount = getCanvasMount(root);
   const canvas = mountCanvas(mount);
 
-  // Replace placeholder by patching prototype methods used in the layout closure.
-  // Simpler: just wire after the fact via the dataset hook.
+  // Replace placeholder by patching the methods the layout closure holds by reference.
   placeholder.exportPng = canvas.exportPng;
   placeholder.resize = canvas.resize;
+  placeholder.setDrawMode = canvas.setDrawMode;
+  placeholder.setBrushWidth = canvas.setBrushWidth;
 
   // Trigger an initial layout-driven resize (canvas mount may have just become sized).
   requestAnimationFrame(() => canvas.resize());
