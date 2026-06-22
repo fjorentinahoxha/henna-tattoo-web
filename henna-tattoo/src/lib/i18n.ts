@@ -330,9 +330,12 @@ const dict = {
     },
     share: {
       waMessage: {
-        en: "Hi! I designed this on your studio.\nHenna: {category}\nSize: {size}\nPrice: {price}\nCan we book a session?",
-        sq: 'Përshëndetje! E dizajnova në studion tuaj.\nKëna: {category}\nMadhësia: {size}\nÇmimi: {price}\nA mund të rezervojmë një seancë?',
+        en: "Hi! I designed this in your studio.\nHenna: {category}\nCan we book a session?",
+        sq: 'Përshëndetje! E dizajnova në studion tuaj.\nKëna: {category}\nA mund të rezervojmë një seancë?',
       },
+    },
+    toast: {
+      downloaded: { en: 'Saved as PNG', sq: 'U ruajt si PNG' },
     },
     empty: {
       hint: {

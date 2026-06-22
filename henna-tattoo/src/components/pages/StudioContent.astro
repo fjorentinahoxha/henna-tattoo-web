@@ -55,7 +55,10 @@ const waHref = `https://wa.me/${site.contact.whatsappNumber}`;
     width: 100%;
     line-height: 0;
     user-select: none;
-    touch-action: none;
+    /* Allow vertical page scrolling when a finger starts on the canvas. While the
+       draw tool is active the script switches this to `none` so strokes aren't
+       interrupted by the page scrolling. */
+    touch-action: pan-y;
   }
   :global(.studio-canvas-mount canvas) {
     display: block;
@@ -72,5 +75,44 @@ const waHref = `https://wa.me/${site.contact.whatsappNumber}`;
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  /* Click feedback: every button in the studio dips + brightens briefly when
+     pressed, so a tap always feels acknowledged (esp. on mobile). */
+  :global(.studio-root button) {
+    transition: transform 0.09s ease, filter 0.09s ease, box-shadow 0.15s ease;
+  }
+  :global(.studio-root button:active) {
+    transform: scale(0.95);
+    filter: brightness(0.96);
+  }
+  @media (hover: none) {
+    /* On touch devices, briefly ring the button being tapped. */
+    :global(.studio-root button:active) {
+      box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.25);
+    }
+  }
+
+  /* Confirmation toast (e.g. after downloading the PNG). */
+  :global(.studio-toast) {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    z-index: 9999;
+    transform: translateX(-50%) translateY(0.5rem);
+    padding: 0.6rem 1.1rem;
+    border-radius: 9999px;
+    background: #5a2410;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+  }
+  :global(.studio-toast--show) {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 </style>

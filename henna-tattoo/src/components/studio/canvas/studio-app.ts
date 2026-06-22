@@ -13,8 +13,8 @@ const CANVAS_W = STUDIO_CONFIG.canvas.width;
 const CANVAS_H = STUDIO_CONFIG.canvas.height;
 
 type CanvasHandles = {
-  /** Trigger a PNG export of the current design. */
-  exportPng: () => Promise<Blob>;
+  /** Export the current design as a PNG Blob (synchronous — preserves the click gesture). */
+  exportPng: () => Blob;
   /** Reattach to a new container size (called on window resize). */
   resize: () => void;
   /** Turn the free-draw tool on/off. While on, dragging motifs is suspended. */
@@ -156,6 +156,9 @@ export function mountCanvas(container: HTMLDivElement): CanvasHandles {
       if (node instanceof Konva.Image) node.listening(!active);
     }
     container.style.cursor = active ? 'crosshair' : '';
+    // While drawing, capture all touch gestures so a stroke isn't cut off by the
+    // page scrolling; otherwise let the page scroll vertically through the canvas.
+    container.style.touchAction = active ? 'none' : 'pan-y';
     if (active) {
       dispatch({ type: 'select-layer', id: null });
     } else if (drawingLine) {
@@ -482,7 +485,7 @@ export function mountCanvas(container: HTMLDivElement): CanvasHandles {
 
   // ---- Public API ----
 
-  async function exportPng(): Promise<Blob> {
+  function exportPng(): Blob {
     // Temporarily detach transformer so it doesn't appear in the export.
     const wasSelected = transformer.nodes();
     transformer.nodes([]);
@@ -496,8 +499,9 @@ export function mountCanvas(container: HTMLDivElement): CanvasHandles {
     transformer.nodes(wasSelected);
     designLayer.batchDraw();
 
-    const res = await fetch(dataUrl);
-    return await res.blob();
+    // Convert synchronously (no async fetch) so the caller keeps its user-gesture
+    // activation — mobile browsers require that for navigator.share() and popups.
+    return dataUrlToBlob(dataUrl);
   }
 
   function destroy(): void {
@@ -627,6 +631,18 @@ function extractHennaStamp(img: HTMLImageElement, hennaHex: string): HTMLCanvasE
 
   ctx.putImageData(data, 0, 0);
   return canvas;
+}
+
+/** Decode a data: URL into a Blob synchronously (no fetch, so no async gap). */
+function dataUrlToBlob(dataUrl: string): Blob {
+  const comma = dataUrl.indexOf(',');
+  const header = dataUrl.slice(0, comma);
+  const mime = header.match(/data:([^;]+)/)?.[1] ?? 'image/png';
+  const binary = atob(dataUrl.slice(comma + 1));
+  const len = binary.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+  return new Blob([bytes], { type: mime });
 }
 
 /** Load any URL (data URL, blob URL, or remote http URL) into an Image element. */

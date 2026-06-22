@@ -59,8 +59,6 @@ export const STUDIO_CONFIG = {
     skinToneId: 'fair',
     hennaColorId: 'brown',
     handPoseId: 'palm',
-    /** Index into the chosen category's priceList (0 = smallest). */
-    sizeIndex: 0,
   },
 
   motifs: {

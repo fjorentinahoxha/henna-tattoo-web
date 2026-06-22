@@ -6,7 +6,6 @@ import { STUDIO_CONFIG } from '../studio.config';
 
 export type Action =
   | { type: 'set-henna';       colorId: string }
-  | { type: 'set-size';        sizeIndex: number }
   | { type: 'add-motif';       motifId: string; x: number; y: number }
   | { type: 'add-design';      src: string; x: number; y: number }
   | { type: 'add-stroke';      points: number[]; width: number; color: string }
@@ -28,7 +27,6 @@ const initial: DesignState = {
   handPoseId:  STUDIO_CONFIG.defaults.handPoseId,
   skinToneId:  STUDIO_CONFIG.defaults.skinToneId,
   hennaColorId: STUDIO_CONFIG.defaults.hennaColorId,
-  sizeIndex:   STUDIO_CONFIG.defaults.sizeIndex,
   layers: [],
   selectedLayerId: null,
   userHandImage: null,
@@ -56,7 +54,6 @@ export function dispatch(action: Action): void {
 function reduce(s: DesignState, a: Action): DesignState {
   switch (a.type) {
     case 'set-henna': return { ...s, hennaColorId: a.colorId };
-    case 'set-size':  return { ...s, sizeIndex:    a.sizeIndex };
     case 'add-motif': {
       const layer: MotifLayer = {
         id: newId(),

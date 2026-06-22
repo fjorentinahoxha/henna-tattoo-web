@@ -3,7 +3,6 @@
 
 import type { Lang } from '../../../lib/i18n';
 import { dict, pick, fmt } from '../../../lib/i18n';
-import { getCategories } from '../../../lib/categories';
 import { getSite } from '../../../lib/site';
 
 import { STUDIO_CONFIG } from '../studio.config';
@@ -12,14 +11,13 @@ import { MOTIFS } from '../registry/motifs';
 import { addMotifAtCenter } from '../canvas/studio-app';
 
 export type CanvasHandles = {
-  exportPng: () => Promise<Blob>;
+  exportPng: () => Blob;
   resize: () => void;
   setDrawMode: (active: boolean) => void;
   setBrushWidth: (width: number) => void;
 };
 
 export function buildLayout(root: HTMLElement, lang: Lang, canvas: CanvasHandles): void {
-  const categories = getCategories(lang);
   const site = getSite(lang);
 
   root.innerHTML = '';
@@ -47,12 +45,11 @@ export function buildLayout(root: HTMLElement, lang: Lang, canvas: CanvasHandles
   const hennaPanel   = buildHennaPanel(lang);
   const drawPanel    = buildDrawPanel(lang, canvas);
   const motifsPanel  = buildMotifsPanel(lang);
-  const pricingPanel = buildPricingPanel(lang, categories);
-  const sharePanel   = buildSharePanel(lang, categories, canvas, site.contact.whatsappNumber);
+  const sharePanel   = buildSharePanel(lang, canvas, site.contact.whatsappNumber);
 
   panels.append(
     photoPanel, hennaPanel, drawPanel,
-    motifsPanel, pricingPanel, sharePanel,
+    motifsPanel, sharePanel,
   );
 
   // Hand the canvas its mount and trigger an initial resize after the DOM is in place.
@@ -369,114 +366,8 @@ function buildMotifsPanel(lang: Lang): HTMLElement {
   return card;
 }
 
-function buildPricingPanel(
-  lang: Lang,
-  categories: ReturnType<typeof getCategories>,
-): HTMLElement {
-  const { card, body } = panelShell('pricing', lang);
-  const t = dict.studio.pricing;
-
-  const catLabel = el(
-    'label',
-    'text-xs font-medium uppercase tracking-wider text-henna-600',
-    pick(t.categoryLabel, lang),
-  );
-  body.appendChild(catLabel);
-
-  const catSelect = el(
-    'select',
-    'rounded-md border border-henna-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-henna-500',
-  ) as HTMLSelectElement;
-  body.appendChild(catSelect);
-
-  // Populate from categories.ts using the henna color's categoryId mapping.
-  for (const henna of STUDIO_CONFIG.hennaColors) {
-    const cat = categories.find((c) => c.slug === henna.categoryId);
-    if (!cat) continue;
-    const opt = document.createElement('option');
-    opt.value = henna.id;
-    opt.textContent = `${pick(henna.label, lang)} — ${cat.title}`;
-    catSelect.appendChild(opt);
-  }
-
-  catSelect.addEventListener('change', () => {
-    dispatch({ type: 'set-henna', colorId: catSelect.value });
-  });
-
-  const sizeLabel = el(
-    'label',
-    'mt-1 text-xs font-medium uppercase tracking-wider text-henna-600',
-    pick(t.sizeLabel, lang),
-  );
-  body.appendChild(sizeLabel);
-
-  const sizeSelect = el(
-    'select',
-    'rounded-md border border-henna-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-henna-500',
-  ) as HTMLSelectElement;
-  body.appendChild(sizeSelect);
-
-  sizeSelect.addEventListener('change', () => {
-    dispatch({ type: 'set-size', sizeIndex: Number(sizeSelect.value) });
-  });
-
-  const priceWrap = el(
-    'div',
-    'mt-2 flex items-end justify-between rounded-xl bg-henna-50 px-4 py-3',
-  );
-  const priceLabelEl = el(
-    'span',
-    'text-xs font-medium uppercase tracking-wider text-henna-600',
-    pick(t.priceLabel, lang),
-  );
-  const priceVal = el(
-    'span',
-    'font-display text-2xl text-henna-700',
-    '—',
-  );
-  priceWrap.appendChild(priceLabelEl);
-  priceWrap.appendChild(priceVal);
-  body.appendChild(priceWrap);
-
-  const note = el('p', 'mt-1 text-[11px] leading-snug text-ink/55', pick(t.note, lang));
-  body.appendChild(note);
-
-  // Refresh: rebuild size list and price when category or size changes.
-  const refresh = (state = getState()) => {
-    catSelect.value = state.hennaColorId;
-
-    const henna = STUDIO_CONFIG.hennaColors.find((h) => h.id === state.hennaColorId);
-    if (!henna) return;
-    const cat = categories.find((c) => c.slug === henna.categoryId);
-    if (!cat) return;
-
-    // Repopulate size options if needed.
-    const desiredCount = cat.priceList.length;
-    if (sizeSelect.options.length !== desiredCount || sizeSelect.dataset.cat !== cat.slug) {
-      sizeSelect.innerHTML = '';
-      for (let i = 0; i < cat.priceList.length; i++) {
-        const item = cat.priceList[i];
-        const opt = document.createElement('option');
-        opt.value = String(i);
-        opt.textContent = `${item.name} — ${item.price}`;
-        sizeSelect.appendChild(opt);
-      }
-      sizeSelect.dataset.cat = cat.slug;
-    }
-
-    const safeIndex = Math.min(state.sizeIndex, cat.priceList.length - 1);
-    sizeSelect.value = String(safeIndex);
-    priceVal.textContent = cat.priceList[safeIndex].price;
-  };
-  subscribe(refresh);
-  refresh();
-
-  return card;
-}
-
 function buildSharePanel(
   lang: Lang,
-  categories: ReturnType<typeof getCategories>,
   canvas: CanvasHandles,
   whatsappNumber: string,
 ): HTMLElement {
@@ -533,51 +424,77 @@ function buildSharePanel(
   subscribe(refresh);
   refresh();
 
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
   downloadBtn.addEventListener('click', async () => {
-    const blob = await canvas.exportPng();
-    triggerDownload(blob, `henna-design-${Date.now()}.png`);
+    const blob = canvas.exportPng();
+    const name = `henna-design-${Date.now()}.png`;
+    const file = new File([blob], name, { type: 'image/png' });
+    // On phones a real file "download" is unreliable (iOS ignores it), so use the
+    // share sheet — the user picks "Save to Photos". Desktop gets a normal download.
+    if (isTouch && canShareFiles(file)) {
+      try {
+        await navigator.share({ files: [file], title: 'Henna design' });
+      } catch {
+        /* cancelled — nothing to do */
+      }
+      return;
+    }
+    triggerDownload(blob, name);
+    showToast(pick(dict.studio.toast.downloaded, lang));
   });
 
   waBtn.addEventListener('click', async () => {
     const state = getState();
     const henna = STUDIO_CONFIG.hennaColors.find((h) => h.id === state.hennaColorId);
-    const cat = henna ? categories.find((c) => c.slug === henna.categoryId) : undefined;
-    if (!henna || !cat) return;
-    const sizeItem = cat.priceList[state.sizeIndex] ?? cat.priceList[0];
+    if (!henna) return;
 
     const message = fmt(pick(dict.studio.share.waMessage, lang), {
-      category: `${pick(henna.label, lang)} — ${cat.title}`,
-      size: sizeItem.name,
-      price: sizeItem.price,
+      category: pick(henna.label, lang),
     });
 
-    const blob = await canvas.exportPng();
-
-    // Try Web Share API first (mobile, includes file).
-    type Navigator2 = Navigator & { canShare?: (data: ShareData) => boolean };
-    const nav = navigator as Navigator2;
+    const blob = canvas.exportPng();
     const file = new File([blob], 'henna-design.png', { type: 'image/png' });
-    const shareData: ShareData = {
-      title: 'Henna design',
-      text: message,
-      files: [file],
-    };
-    if (nav.share && nav.canShare && nav.canShare(shareData)) {
+
+    // Best path on mobile: share the image straight into WhatsApp with the message.
+    if (canShareFiles(file)) {
       try {
-        await nav.share(shareData);
+        await navigator.share({ title: 'Henna design', text: message, files: [file] });
         return;
-      } catch (e) {
-        // user cancelled or share failed; fall through to wa.me
+      } catch {
+        /* cancelled or failed — fall through to wa.me link */
       }
     }
 
-    // Desktop fallback: download the image, then open WhatsApp with the message prefilled.
-    triggerDownload(blob, `henna-design-${Date.now()}.png`);
+    // Fallback: open WhatsApp with the message prefilled (desktop also downloads the image).
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank', 'noopener');
+    if (!isTouch) triggerDownload(blob, `henna-design-${Date.now()}.png`);
+    const win = window.open(url, '_blank', 'noopener');
+    if (!win) window.location.href = url; // popup blocked (mobile) → navigate instead
   });
 
   return card;
+}
+
+/** True when the browser can share an actual file (Web Share API level 2). */
+function canShareFiles(file: File): boolean {
+  const nav = navigator as Navigator & { canShare?: (data: ShareData) => boolean };
+  return (
+    typeof nav.share === 'function' &&
+    typeof nav.canShare === 'function' &&
+    nav.canShare({ files: [file] })
+  );
+}
+
+/** Brief confirmation toast (e.g. after a download). Auto-dismisses. */
+function showToast(message: string): void {
+  const toast = el('div', 'studio-toast', message);
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('studio-toast--show'));
+  setTimeout(() => {
+    toast.classList.remove('studio-toast--show');
+    setTimeout(() => toast.remove(), 300);
+  }, 1800);
 }
 
 // ---------- helpers ----------

@@ -66,8 +66,6 @@ export type DesignState = {
   handPoseId: string;
   skinToneId: string;
   hennaColorId: string;
-  /** Picked size tier index into the currently selected category's priceList. */
-  sizeIndex: number;
   layers: Layer[];
   /** Id of the layer currently selected on the canvas, or null if none. */
   selectedLayerId: string | null;

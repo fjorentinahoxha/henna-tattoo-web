@@ -13,7 +13,7 @@ export function mountStudio(root: HTMLElement, lang: Lang): StudioHandles {
   // Build the DOM panels first; canvas needs a real DOM node to mount into.
   // The canvas handles are exposed back through the share/download buttons.
   const placeholder = {
-    exportPng: async () => new Blob(),
+    exportPng: () => new Blob(),
     resize: () => {},
     setDrawMode: (_active: boolean) => {},
     setBrushWidth: (_width: number) => {},
